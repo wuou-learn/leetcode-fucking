@@ -34,23 +34,42 @@ package com.solve.leetcode.editor.cn;
 /**
  * P35 --- 搜索插入位置
  **/
-public class SearchInsertPosition{
-	public static void main(String[] args) {
-		Solution solution = new SearchInsertPosition().new Solution();
-		
-	}
-//leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public int searchInsert(int[] nums, int target) {
-    	// 暴力破解
-		for (int i = 0 ; i < nums.length ; i++) {
-			if(nums[i] >= target){
-				return i;
-			}
-		}
-		return nums.length;
+public class SearchInsertPosition {
+    public static void main(String[] args) {
+
+        Solution solution = new SearchInsertPosition().new Solution();
+
     }
-}
+
+    //leetcode submit region begin(Prohibit modification and deletion)
+    class Solution {
+        public int searchInsert(int[] nums, int target) {
+            // 暴力破解
+			/*for (int i = 0 ; i < nums.length ; i++) {
+				if(nums[i] >= target){
+					return i;
+				}
+			}
+			return nums.length;*/
+
+            // 二分法
+            int n = nums.length;
+            int left = 0;
+            int right = n - 1;
+
+            while (left <= right) {
+                int middle = (left + right) / 2;
+                if (target == nums[middle]) {
+                    return middle;
+                } else if (target > nums[middle]) {
+                    left = middle + 1;
+                } else if (target < nums[middle]) {
+                    right = middle - 1;
+                }
+            }
+            return right+1;
+        }
+    }
 //leetcode submit region end(Prohibit modification and deletion)
 
 }
