@@ -65,7 +65,8 @@ public class MinimumSizeSubarraySum {
             int sum = 0;
             int result = 0;
             int index = 0;
-            for (int i = 0; i < nums.length; i++) {
+            int i = 0;
+            /*for (int i = 0; i < nums.length; i++) {
                 sum = 0;
                 for (int j =i; j < nums.length; j++) {
                     sum += nums[j];
@@ -78,6 +79,22 @@ public class MinimumSizeSubarraySum {
                         result = result < index ? result : index;
                         break;
                     }
+                }
+            }
+            return result;*/
+
+
+            // O(n) 复杂度
+            for(int j =0;j<nums.length;j++){
+                sum+= nums[j];
+                while (sum >= target) {
+                    index = j-i+1;
+                    if (sum >= target && result == 0) {
+                        result = index;
+                    } else if (sum >= target && result != 0) {
+                        result = result < index ? result : index;
+                    }
+                    sum-=nums[i++];
                 }
             }
             return result;
