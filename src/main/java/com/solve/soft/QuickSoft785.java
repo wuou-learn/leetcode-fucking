@@ -51,11 +51,12 @@ public class QuickSoft785 {
     }
 
     private static void quickSoft(int[] array, int l, int r) {
-
+        // 边界判定
         if(l >= r){
             return ;
         }
 
+        // 定义双指针
         int x = array[l];
         int i = l-1;
         int j = r+1;
