@@ -10,9 +10,11 @@ public class FindDic {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int length = scanner.nextInt();
+        double v = scanner.nextDouble();
+        System.out.println(String.format("%.6f",dic(v)));
 
-        int num = scanner.nextInt();
+
+        /*int num = scanner.nextInt();
 
         int[] arr = new int [length];
         for(int i=0; i<length; i++){
@@ -22,7 +24,7 @@ public class FindDic {
         for(int i=0; i<num; i++){
             solve(arr,scanner.nextInt());
 
-        }
+        }*/
 
     }
 
@@ -58,5 +60,26 @@ public class FindDic {
             }
         }
         System.out.println(r);
+    }
+
+
+    /**
+     * 浮点二分
+     * @param x
+     * @return
+     */
+    public static double dic(double x){
+
+        double l =-10000.00,r=10000.00;
+
+        for(int i =0; i<100; i++){
+            double mid = (l+r)/2;
+            if(mid*mid*mid >=x){
+                r=mid;
+            }else{
+                l=mid;
+            }
+        }
+        return l;
     }
 }
