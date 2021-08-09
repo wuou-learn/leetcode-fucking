@@ -16,8 +16,6 @@ public class Test {
         for (int b:solve) {
             System.out.println(b);
         }
-
-
     }
 
     /**
