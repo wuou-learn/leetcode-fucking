@@ -1,5 +1,9 @@
 package com.solve.单链表;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 /**
  * @Description
  * @Author wuou
@@ -8,7 +12,27 @@ package com.solve.单链表;
  */
 public class LeetCode92 {
 
-    public ListNode reverseBetween(ListNode head, int left, int right) {
+    public static void main(String[] args) {
+        int [] arr = new int[5];
+        arr[0]=1;
+        arr[1]=2;
+        arr[2]=3;
+        arr[3]=4;
+        arr[4]=5;
+        solve(arr,2);
+    }
+
+    public static void solve(int []arr, int k){
+        int res []=new int[k];
+        for(int i=1;i<=arr.length;i++){
+            res[((i-1)%k)] =i;
+            if(i%k==0){
+                res = new int[k];
+            }
+        }
+    }
+
+    public static ListNode reverseBetween(ListNode head, int left, int right) {
         if(left == 1){
             return revereRight(head,right);
         }
@@ -16,8 +40,8 @@ public class LeetCode92 {
         return head;
     }
 
-    ListNode successor = null;
-    private ListNode revereRight(ListNode head, int right) {
+    static ListNode successor = null;
+    private static ListNode revereRight(ListNode head, int right) {
         if(right == 1){
             successor = head.next;
             return head;
