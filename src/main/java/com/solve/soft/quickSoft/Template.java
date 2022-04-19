@@ -1,4 +1,4 @@
-package com.solve.soft.快速排序;
+package com.solve.soft.quickSoft;
 
 /**
  * 快排-模板

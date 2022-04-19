@@ -1,4 +1,4 @@
-package com.solve.soft.快速排序;
+package com.solve.soft.quickSoft;
 
 /**
  * 给定整数数组 nums 和整数 k，请返回数组中第 k 个最大的元素。
