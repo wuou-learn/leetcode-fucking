@@ -49,6 +49,10 @@ public class SetMismatch {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        /**
+         * 645
+         * 时间复杂度O(N)
+         */
         public int[] findErrorNums(int[] nums) {
             int[] res = new int[2];
             int[] cur = new int[nums.length+1];
