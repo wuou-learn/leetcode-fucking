@@ -47,7 +47,7 @@ public class MinimumMovesToEqualArrayElements {
     }
 
     /**
-     * 最小操作次数使数组元素相等
+     * 453最小操作次数使数组元素相等
      */
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
