@@ -6,7 +6,7 @@ package com.solve.leetcode.editor.cn;
 class FibonacciNumber {
     public static void main(String[] args) {
         Solution solution = new FibonacciNumber().new Solution();
-        solution.fib(0);
+        solution.fib(3);
     }
 
     /**
@@ -36,13 +36,17 @@ class FibonacciNumber {
             if (n == 0) {
                 return 0;
             }
-            int [] dp = new int[n+1];
-            dp[0] = 0;
-            dp[1] = 1;
-            for (int i = 2; i <= n; i++) {
-                dp[i] = dp[i-1] + dp[i-2];
+            if (n == 1 || n == 2) {
+                return 1;
             }
-            return dp[n];
+            int dp1 = 0; int dp2 = 1;
+            int dpi = 0;
+            for (int i = 2; i <= n; i++) {
+                dpi = dp1 + dp2;
+                dp1 = dp2;
+                dp2 = dpi;
+            }
+            return dpi;
         }
 
     }
