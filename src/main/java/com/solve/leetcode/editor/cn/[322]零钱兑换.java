@@ -13,50 +13,19 @@ class CoinChange {
      */
 //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
-        /*int [] memo ;
         public int coinChange(int[] coins, int amount) {
-            memo = new int[amount+1];
-            Arrays.fill(memo, -888);
-            return dp(coins,amount);
-        }
-
-        private int dp(int[] coins, int amount) {
-            if (amount == 0) {
-                return 0;
-            }
-            if (amount < 0) {
-                return -1;
-            }
-            if (memo[amount] != -888) {
-                return memo[amount];
-            }
-            int res = Integer.MAX_VALUE;
-            for (int coin : coins) {
-                int dp = dp(coins, amount-coin);
-                if (dp < 0) {
-                    continue;
-                }
-                res = Math.min(dp+1, res);
-            }
-            memo[amount] = res==Integer.MAX_VALUE ? -1 : res;
-            return memo[amount];
-        }*/
-
-        public int coinChange(int[] coins, int amount) {
-            int [] dp = new int[amount+1];
+            int [] dp = new int [amount+1];
             Arrays.fill(dp, amount+1);
-            // base case
             dp[0] = 0;
-
-            for (int i = 0; i < dp.length; i++) {
+            for (int i = 0; i <= amount; i++) {
                 for (int coin : coins) {
                     if (i - coin < 0) {
                         continue;
                     }
-                    dp[i] = Math.min(dp[i], 1 + dp[i-coin]);
+                    dp[i] = Math.min(dp[i],dp[i-coin]+1);
                 }
             }
-            return dp[amount] == amount+1 ? -1 : dp[amount];
+            return dp[amount] == amount+1?-1:dp[amount];
         }
 
     }
