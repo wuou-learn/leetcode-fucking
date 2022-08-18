@@ -16,15 +16,11 @@ class ImplementStrstr {
                 return 0;
             }
 
-            if (!haystack.contains(needle)) {
-                return -1;
-            }
-
             int m = haystack.length();
 
             int left = 0;
             int right = 0;
-            int res = 0;
+            int res = -666;
             while (m-left > right) {
                 for (int i = left; i < haystack.length() && right < needle.length(); i++) {
                     if (haystack.charAt(i) == needle.charAt(right)) {
@@ -44,7 +40,7 @@ class ImplementStrstr {
                     right = 0;
                 }
             }
-            return res-needle.length()+1;
+            return res == -666 ? -1 : res-needle.length()+1;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
