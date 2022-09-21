@@ -6,3 +6,6 @@
 /.idea/vcs.xml
 /out/
 /.idea/uiDesigner.xml
+/src/main/java/com/solve/leetcode/editor/cn/doc/
+/src/main/java/com/solve/plantuml/coupon/
+/.idea/

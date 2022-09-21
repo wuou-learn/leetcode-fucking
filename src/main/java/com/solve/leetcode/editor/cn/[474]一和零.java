@@ -3,10 +3,18 @@ package com.solve.leetcode.editor.cn;
 class OnesAndZeroes {
     public static void main(String[] args) {
         Solution solution = new OnesAndZeroes().new Solution();
+        solution.findMaxForm(new String[]{"10","0001","111001","1","0"}, 5, 3);
     }
 
     /**
+     * 多背包问题
+     *
      * 一和零
+     *
+     * 状态表示：从字符串长度i中找出 最多m0 n1
+     *
+     * dp[m][n]
+     * 状态集合：f(i,m,n)
      */
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {

@@ -7,6 +7,8 @@ class RearrangeSpacesBetweenWords {
     public static void main(String[] args) {
         Solution solution = new RearrangeSpacesBetweenWords().new Solution();
         solution.reorderSpaces("a b   c d");
+        Long a = 156007L;
+        System.out.println(a.hashCode());
     }
 
     /**

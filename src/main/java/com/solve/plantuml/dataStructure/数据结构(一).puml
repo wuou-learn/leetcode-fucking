@@ -1,0 +1,12 @@
+@startmindmap
+
+title 链表
+
++[#lightblue] 链表
+++ 单链表
++++ 邻接表: n个单链表组成的
+++++ 树
+++++ 图
+++ 双链表：用来优化某些问题
+
+@endmindmap

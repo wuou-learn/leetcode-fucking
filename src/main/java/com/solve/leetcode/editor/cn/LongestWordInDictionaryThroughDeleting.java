@@ -55,12 +55,14 @@ public class LongestWordInDictionaryThroughDeleting {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public String findLongestWord(String s, List<String> dictionary) {
-            // 匹配到的多少个字符 / 字符串
-            TreeMap<Integer, List<String>> treeMap = new TreeMap<>(Comparator.reverseOrder());
+            String res = "";
             for (String str : dictionary) {
-                int i = 0;
-                int j = 0;
+                // 记录匹配的字符长度
                 int index = 0;
+                // 字符串指针
+                int i = 0;
+                // 字典指针
+                int j = 0;
                 while (i < str.length() && j < s.length()) {
                     if (str.charAt(i) == s.charAt(j)) {
                         index++;
@@ -68,41 +70,9 @@ public class LongestWordInDictionaryThroughDeleting {
                     }
                     j++;
                 }
-                if (index > 0 && index == str.length()) {
-                    List<String> list = treeMap.get(index);
-                    if (list != null) {
-                        list.add(str);
-                    } else {
-                        ArrayList<String> arrayList = new ArrayList<>();
-                        arrayList.add(str);
-                        treeMap.put(index,arrayList);
-                    }
-                }
-            }
-
-            if (treeMap.size() == 0) {
-                return "";
-            }
-
-            String res = "";
-            int maxIndex = 0;
-            int min = Integer.MAX_VALUE;
-            for (Map.Entry<Integer, List<String>> entry : treeMap.entrySet()) {
-                List<String> result = entry.getValue();
-                result.sort((a, b) -> {
-                    if (a.length() != b.length()) return b.length() - a.length();
-                    return a.compareTo(b);
-                });
-
-                for (String str : result) {
-                    int sum = 0;
-                    for (int i =0; i<str.length(); i++) {
-                        sum+=str.charAt(i);
-                    }
-                    if (entry.getKey() > maxIndex && sum < min) {
+                if (index == str.length()) {
+                    if (index > res.length() && str.compareTo(res) < 0) {
                         res = str;
-                        maxIndex = entry.getKey();
-                        min = sum;
                     }
                 }
             }
