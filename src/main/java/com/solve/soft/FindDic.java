@@ -10,22 +10,18 @@ public class FindDic {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        double v = scanner.nextDouble();
-        System.out.println(String.format("%.6f",dic(v)));
-
-
-        /*int num = scanner.nextInt();
-
-        int[] arr = new int [length];
-        for(int i=0; i<length; i++){
-            arr[i] = scanner.nextInt();
+        double x = scanner.nextDouble();
+        double l = -10000;
+        double r = 10000;
+        while (l < r) {
+            double mid = (l + r)/2;
+            if (mid*mid*mid >= x) {
+                r = mid;
+            } else {
+                l = mid;
+            }
         }
-
-        for(int i=0; i<num; i++){
-            solve(arr,scanner.nextInt());
-
-        }*/
-
+        System.out.println(String.format("%.6f",l));
     }
 
 

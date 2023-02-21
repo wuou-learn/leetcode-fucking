@@ -29,6 +29,7 @@ package com.solve.acwing;
 
 import java.io.*;
 import java.util.Scanner;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * TODO: Write something here..
@@ -37,32 +38,48 @@ import java.util.Scanner;
  */
 public class Acwing01 {
 
-    public static void main(String[] args) throws Exception {
-        Scanner scanner = new Scanner(System.in);
-        // 件数
-        int n = scanner.nextInt();
-        // 总体积
-        int m = scanner.nextInt();
-
-        // 体积
-        int [] v = new int[n+1];
-        // 价值　
-        int [] w = new int[n+1];
-        for (int i = 1; i <= n; i++) {
-            v[i] = scanner.nextInt();
-            w[i] = scanner.nextInt();
-        }
-
-        int [][] dp = new int[n+1][m+1];
-        for (int i = 1; i <= n; i++) {
-            for (int j = 0; j <= m; j++) {
-                dp[i][j] = dp[i-1][j];
-                if (j >= v[i]) {
-                    dp[i][j] = Math.max(dp[i][j], dp[i-1][j-v[i]]+w[i]);
+    public static void main(String[] args) throws InterruptedException {
+        CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(1000);
+                if (true) {
+                    throw new RuntimeException("test exception");
                 }
+                System.out.println(Thread.currentThread()+"主任务执行完成");
+                return "res";
+            } catch (Exception e) {
+                System.out.println("exception");
+                return null;
             }
-        }
-        System.out.println(dp[n][m]);
+        });
+
+        future.thenAccept(res -> {
+            System.out.println("主任务返回值:"+res);
+        });
+        future.thenAcceptAsync(res -> {
+            if (res == null) {
+                System.out.println("主任务异常子任务1 不执行");
+                return;
+            }
+            System.out.println(Thread.currentThread()+"子任务1"+"------>"+"主任务返回值:"+res);
+        });
+        future.thenAcceptAsync(res -> {
+            if (res == null) {
+                System.out.println("主任务异常子任务2 不执行");
+                return;
+            }
+            System.out.println(Thread.currentThread()+"子任务2"+"------>"+"主任务返回值:"+res);
+        });
+        future.thenAcceptAsync(res -> {
+            if (res == null) {
+                System.out.println("主任务异常子任务4 不执行");
+                return;
+            }
+            System.out.println(Thread.currentThread()+"子任务4"+"------>"+"主任务返回值:"+res);
+        });
+        System.out.println("main wait");
+        Thread.sleep(2000);
+        System.out.println("main finish");
     }
 
 }
