@@ -1,9 +1,5 @@
 package com.solve.acwing;
 
-import sun.nio.ch.sctp.SctpNet;
-
-import java.io.*;
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**

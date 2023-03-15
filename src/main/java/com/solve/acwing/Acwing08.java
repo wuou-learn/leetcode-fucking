@@ -1,6 +1,5 @@
 package com.solve.acwing;
 
-import java.io.*;
 
 /**
  * Trie
