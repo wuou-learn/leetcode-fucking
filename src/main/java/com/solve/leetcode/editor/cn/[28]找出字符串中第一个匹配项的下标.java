@@ -11,17 +11,13 @@ class FindTheIndexOfTheFirstOccurrenceInAString {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int strStr(String haystack, String needle) {
-            // 数据范围
-            int [] next = new int[10010];
-            String s = " " + haystack;
-            int n = haystack.length();
-            char[] ss = s.toCharArray();
-            String p = " " + needle;
-            int m = needle.length();
+            int N = 10010;
+            int [] next = new int[N];
+            String p =" "+needle;
+            String s =" "+haystack;
             char[] pp = p.toCharArray();
-
-            // 找到最小匹配前缀
-            for(int i = 2, j = 0; i <= m; i++) {
+            char[] ss = s.toCharArray();
+            for (int i = 2, j = 0; i < p.length(); i++) {
                 while (j != 0 && pp[i] != pp[j+1]) {
                     j = next[j];
                 }
@@ -31,16 +27,15 @@ class FindTheIndexOfTheFirstOccurrenceInAString {
                 next[i] = j;
             }
 
-            // kmp匹配
-            for (int i = 1, j = 0; i <= n; i++) {
-                while (j != 0 && ss[i] != pp[j+1]) {
+            for (int i = 1, j = 0; i < s.length(); i++) {
+                while (j!=0 && ss[i] != pp[j+1]) {
                     j = next[j];
                 }
                 if (ss[i] == pp[j+1]) {
                     j++;
                 }
-                if (j == m) {
-                    return i-m;
+                if (j == needle.length()) {
+                    return i-needle.length();
                 }
             }
 

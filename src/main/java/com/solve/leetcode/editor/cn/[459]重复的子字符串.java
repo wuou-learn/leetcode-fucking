@@ -1,11 +1,11 @@
 package com.solve.leetcode.editor.cn;
 
-import java.util.*;
-
 class RepeatedSubstringPattern {
     public static void main(String[] args) {
         Solution solution = new RepeatedSubstringPattern().new Solution();
-        solution.repeatedSubstringPattern("aabaaba");
+        solution.repeatedSubstringPattern("aba");
+        System.out.println(7%3);
+        System.out.println(3%1);
     }
 
     /**
@@ -14,21 +14,20 @@ class RepeatedSubstringPattern {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public boolean repeatedSubstringPattern(String s) {
-            String ss = " " + s;
-            int [] arr = new int[ss.length()];
-            char[] chars = ss.toCharArray();
-            for (int i = 2,j = 0; i < chars.length; i++) {
-                while (j != 0 && chars[i] != chars[j+1]) {
-                    j = arr[j];
+            String p = " " + s;
+            char[] pp = p.toCharArray();
+            int [] next = new int[pp.length];
+            for (int i = 2, j = 0; i < pp.length; i++) {
+                while (j!=0 && pp[i] != pp[j+1]) {
+                    j = next[j];
                 }
-                if (chars[i] == chars[j+1]) {
+                if (pp[i] == pp[j+1]) {
                     j++;
                 }
-                arr[i] = j;
+                next[i] = j;
             }
-            int t = s.length()-arr[s.length()];
-
-            return t < s.length() && s.length()%t == 0;
+            int len = s.length()-next[s.length()];
+            return len < s.length() && (s.length() % len) == 0;
         }
 
 

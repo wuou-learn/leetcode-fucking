@@ -22,19 +22,20 @@ public class Acwing06 {
         int hh = 0;
         int tt = -1;
         for (int i = 0; i < n; i++) {
-            // 如果队列中存在元素
-            // 如果队列中元素超过k 弹出头节点
-            if (hh <= tt && q[hh] < i-k+1) {
+            // 超出窗口长度弹出队头
+            if (hh <= tt && q[hh] < i - k + 1) {
                 hh++;
             }
-            // 如果队列中存在元素
-            // 尾插的节点小于尾节点
+
+            // 队尾值进行比较是否最小 如果最小直接插队
             while (hh <= tt && a[i] < a[q[tt]]) {
                 tt--;
             }
+
+            // 入队列
             q[++tt] = i;
-            if (i >= k-1) {
-                printWriter.print(a[q[hh]]+" ");
+            if (i >= k - 1) {
+                System.out.print(a[q[hh]] + " ");
             }
         }
         printWriter.println();
