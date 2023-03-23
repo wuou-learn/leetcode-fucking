@@ -15,16 +15,15 @@ class TrappingRainWater {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int trap(int[] height) {
-            Stack<Integer> stk = new Stack<>();
             int res = 0;
             int last = 0;
+            Stack<Integer> stk = new Stack<>();
             for (int i = 0; i < height.length; i++) {
-                while (!stk.empty() && height[i] >= height[stk.peek()]) {
+                while (!stk.isEmpty() && height[i] > height[stk.peek()]) {
                     res += (i - 1 - stk.peek()) * (height[stk.peek()] - last);
-                    last = height[stk.peek()];
-                    stk.pop();
+                    last = height[stk.pop()];
                 }
-                if (!stk.empty()) {
+                if (!stk.isEmpty()) {
                     res += (i - 1 - stk.peek()) * (height[i] - last);
                 }
                 stk.push(i);

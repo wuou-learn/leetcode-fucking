@@ -1,11 +1,14 @@
 package com.solve.leetcode.editor.cn;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.List;
 
 class SlidingWindowMaximum {
     public static void main(String[] args) {
         Solution solution = new SlidingWindowMaximum().new Solution();
-        solution.maxSlidingWindow(new int[]{1,3,-1,-3,5,3,6,7}, 3);
+        solution.maxSlidingWindow(new int[]{7,2,4}, 2);
     }
 
     /**
@@ -14,27 +17,25 @@ class SlidingWindowMaximum {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int[] maxSlidingWindow(int[] nums, int k) {
-            int length = nums.length;
             List<Integer> list = new ArrayList<>();
-            Deque<Integer> deque = new LinkedList<>();
-            for (int i = 0; i < length; i++) {
-                // 如果超过窗口长度弹出队头
-                if (!deque.isEmpty() && deque.peekFirst() < i - k +1) {
+            Deque<Integer> deque = new ArrayDeque<>();
+
+            for (int i = 0; i < nums.length; i++) {
+                // 超出滑动窗口最大值 弹出队首
+                if (!deque.isEmpty() && i - k + 1 > deque.peekFirst()) {
                     deque.pollFirst();
                 }
 
-                // 比较尾节点是否是最大的 如果最大直接插队
-                while (!deque.isEmpty() && nums[i] > nums[deque.peekLast()]) {
+                while (!deque.isEmpty() && nums[i] >= nums[deque.peekLast()]) {
                     deque.pollLast();
                 }
-
-                // 插入
-                deque.addLast(i);
-                if (i >= k -1 && Objects.nonNull(deque.peekFirst())) {
+                deque.add(i);
+                if (i >= k - 1) {
                     list.add(nums[deque.peekFirst()]);
                 }
             }
-            int [] res = new int[list.size()];
+
+            int[] res = new int[list.size()];
             for (int i = 0; i < list.size(); i++) {
                 res[i] = list.get(i);
             }
