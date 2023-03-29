@@ -12,35 +12,33 @@ class ImplementStrstr {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int strStr(String haystack, String needle) {
-            if ("".equals(needle)) {
-                return 0;
+            String p = " " + needle;
+            char[] pp = p.toCharArray();
+            String s = " " + haystack;
+            char[] ss = s.toCharArray();
+            int[] next = new int[pp.length];
+            for (int i = 2, j = 0; i < pp.length; i++) {
+                while (j!=0 && pp[i] != pp[j+1]) {
+                    j = next[j];
+                }
+                if (pp[i] == pp[j+1]) {
+                    j++;
+                }
+                next[i] = j;
             }
 
-            int m = haystack.length();
-
-            int left = 0;
-            int right = 0;
-            int res = -666;
-            while (m-left > right) {
-                for (int i = left; i < haystack.length() && right < needle.length(); i++) {
-                    if (haystack.charAt(i) == needle.charAt(right)) {
-                        right++;
-                    } else {
-                        break;
-                    }
-                    if (right == needle.length()) {
-                        res = i;
-                        break;
-                    }
+            for (int i = 1, j = 0; i < ss.length; i++) {
+                while (j!=0 && ss[i] != pp[j+1]) {
+                    j = next[j];
                 }
-                if (right == needle.length()) {
-                    break;
-                } else {
-                    left++;
-                    right = 0;
+                if (ss[i] == pp[j+1]) {
+                    j++;
+                }
+                if (j == needle.length()) {
+                    return i - needle.length();
                 }
             }
-            return res == -666 ? -1 : res-needle.length()+1;
+            return -1;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
