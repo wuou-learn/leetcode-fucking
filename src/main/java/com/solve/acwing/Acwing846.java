@@ -48,7 +48,10 @@ public class Acwing846 {
                 sum += s;
             }
         }
+        // 邻接表是向下执行，所以删掉的点上面可能是最大的连通块
+        // 所以将下面连通块总和与上方剩余连通块总和进行比较
         res = Math.max(res, n-sum);
+        // 留下最小值
         ans = Math.min(res,ans);
         return sum;
     }
