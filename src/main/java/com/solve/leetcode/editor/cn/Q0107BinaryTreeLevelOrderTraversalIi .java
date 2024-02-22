@@ -4,6 +4,7 @@ import com.solve.common.TreeNode;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -84,7 +85,7 @@ public static void main(String[] args) {
     class Solution {
         public List<List<Integer>> levelOrderBottom(TreeNode root) {
             ArrayDeque<TreeNode> arrayDeque = new ArrayDeque<>();
-            List<List<Integer>> temp = new ArrayList<>();
+            List<List<Integer>> res = new ArrayList<>();
             if (root != null) {
                 arrayDeque.offer(root);
             }
@@ -102,13 +103,10 @@ public static void main(String[] args) {
                     }
                     level.add(t.val);
                 }
-                temp.add(level);
+                res.add(level);
             }
 
-            List<List<Integer>> res = new ArrayList<>();
-            for (int i = temp.size()-1; i >= 0; i--) {
-                res.add(temp.get(i));
-            }
+            Collections.reverse(res);
             return res;
         }
     }
