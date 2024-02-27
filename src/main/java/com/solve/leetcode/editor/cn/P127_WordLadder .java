@@ -82,16 +82,16 @@ class P127_WordLadder {
             deque.offer(beginWord);
             while (!deque.isEmpty()) {
                 String t = deque.poll();
-                String r;
                 for (int i = 0; i < t.length(); i++) {
+                    StringBuilder r = new StringBuilder(t);
                     for (char j = 'a'; j <= 'z'; j++) {
-                        r = t.substring(0, i) + j + t.substring(i+1, t.length());
-                        if (wordSet.contains(r) && !dist.containsKey(r)) {
-                            dist.put(r, dist.get(t) + 1);
-                            if (r.equals(endWord)) {
-                                return dist.get(r) + 1;
+                        r.setCharAt(i, j);
+                        if (wordSet.contains(r.toString()) && !dist.containsKey(r.toString())) {
+                            dist.put(r.toString(), dist.get(t) + 1);
+                            if (r.toString().equals(endWord)) {
+                                return dist.get(r.toString()) + 1;
                             }
-                            deque.offer(r);
+                            deque.offer(r.toString());
                         }
                     }
                 }
