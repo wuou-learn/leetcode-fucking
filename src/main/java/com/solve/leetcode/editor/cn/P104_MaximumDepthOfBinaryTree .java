@@ -73,7 +73,6 @@ class P104_MaximumDepthOfBinaryTree{
  */
 class Solution {
 	ArrayDeque<TreeNode> arrayDeque = new ArrayDeque<>();
-	Map<TreeNode, Integer> dist = new HashMap<>();
     public int maxDepth(TreeNode root) {
 		if (root == null) {
 			return 0;
