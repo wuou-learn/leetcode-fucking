@@ -46,6 +46,10 @@
 
 package com.solve.leetcode.editor.cn;
 
+import javafx.util.Pair;
+
+import java.util.ArrayDeque;
+
 /**
  * 岛屿数量
  *
@@ -56,6 +60,7 @@ class P200_NumberOfIslands {
     public static void main(String[] args) {
         //测试代码
         Solution solution = new P200_NumberOfIslands().new Solution();
+        solution.numIslands(new char[][]{{'1','1','1','1','0'},{'1','1','0','1','0'},{'1','1','0','0','0'},{'0','0','0','0','0'}});
     }
 
     //力扣代码
@@ -65,13 +70,14 @@ class P200_NumberOfIslands {
         char[][] g;
         int [] dx = new int[]{0,0,1,-1};
         int [] dy = new int[]{1,-1,0,0};
+        ArrayDeque<Pair<Integer,Integer>> arrayDeque = new ArrayDeque<>();
         public int numIslands(char[][] grid) {
             g = grid;
             int res = 0;
             for (int i = 0; i < grid.length; i++) {
                 for (int j = 0; j < grid[i].length; j++) {
                     if (g[i][j] == '1') {
-                        dfs(i,j);
+                        bfs(i,j);
                         res ++;
                     }
                 }
@@ -79,13 +85,28 @@ class P200_NumberOfIslands {
             return res;
         }
 
-        public void dfs(int i, int j) {
+        /*public void dfs(int i, int j) {
             g[i][j] = '0';
             for (int z = 0; z < 4; z++) {
                 int x = dx[z] + i;
                 int y = dy[z] + j;
                 if (x >= 0 && x < g.length && y >= 0 && y < g[x].length && g[x][y] == '1') {
                     dfs(x,y);
+                }
+            }
+        }*/
+
+        public void bfs(int i, int j) {
+            arrayDeque.offer(new Pair<>(i,j));
+            while (!arrayDeque.isEmpty()) {
+                Pair<Integer, Integer> poll = arrayDeque.poll();
+                for (int z = 0; z < 4; z++) {
+                    int a = poll.getKey() + dx[z];
+                    int b = poll.getValue() + dy[z];
+                    if (a >= 0 && a < g.length && b >= 0 && b < g[a].length && g[a][b] == '1') {
+                        arrayDeque.offer(new Pair<>(a,b));
+                        g[a][b] = '2';
+                    }
                 }
             }
         }
