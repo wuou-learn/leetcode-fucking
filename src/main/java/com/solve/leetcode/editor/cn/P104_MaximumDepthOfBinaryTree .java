@@ -45,42 +45,76 @@ import java.util.Objects;
 
 /**
  * 二叉树的最大深度
+ *
  * @author wuou
  * @date 2024-03-01 21:34:52
  */
-class P104_MaximumDepthOfBinaryTree{
-	 public static void main(String[] args) {
-	 	 //测试代码
-	 	 Solution solution = new P104_MaximumDepthOfBinaryTree().new Solution();
-	 }
-	 
+class P104_MaximumDepthOfBinaryTree {
+    public static void main(String[] args) {
+        //测试代码
+        Solution solution = new P104_MaximumDepthOfBinaryTree().new Solution();
+        TreeNode root = new TreeNode();
+        root.val=3;
+        TreeNode treeNode1 = new TreeNode();
+        treeNode1.val=9;
+        TreeNode treeNode2 = new TreeNode();
+        treeNode2.val=20;
+        TreeNode treeNode3 = new TreeNode();
+        treeNode3.val=15;
+        TreeNode treeNode4 = new TreeNode();
+        treeNode4.val=7;
+        root.left = treeNode1;
+        root.right = treeNode2;
+        treeNode2.left = treeNode3;
+        treeNode2.right = treeNode4;
+        solution.maxDepth(root);
+    }
+
 //力扣代码
 //leetcode submit region begin(Prohibit modification and deletion)
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
-class Solution {
-	ArrayDeque<TreeNode> arrayDeque = new ArrayDeque<>();
-    public int maxDepth(TreeNode root) {
+
+    /**
+     * Definition for a binary tree node.
+     * public class TreeNode {
+     * int val;
+     * TreeNode left;
+     * TreeNode right;
+     * TreeNode() {}
+     * TreeNode(int val) { this.val = val; }
+     * TreeNode(int val, TreeNode left, TreeNode right) {
+     * this.val = val;
+     * this.left = left;
+     * this.right = right;
+     * }
+     * }
+     */
+    class Solution {
+        ArrayDeque<TreeNode> arrayDeque = new ArrayDeque<>();
+
+        int res = 0;
+        public int maxDepth(TreeNode root) {
+            int level = 0;
+            dfs(root, level);
+            return res;
+        }
+
+        public int dfs(TreeNode root, int level) {
+            if (root == null) {
+                return level;
+            }
+            level++;
+            res = Math.max(level, res);
+            dfs(root.left, level);
+            dfs(root.right, level);
+            return level;
+        }
+    /*public int maxDepth(TreeNode root) {
 		if (root == null) {
 			return 0;
 		}
-		arrayDeque.offer(root);
-		return bfs();
-    }
-	public int bfs(){
+		return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
+    }*/
+	/*public int bfs(){
 		int level = 0;
 		while (!arrayDeque.isEmpty()) {
 			level++;
@@ -96,8 +130,8 @@ class Solution {
 			}
 		}
 		return level;
-	}
-}
+	}*/
+    }
 //leetcode submit region end(Prohibit modification and deletion)
 
 }
