@@ -90,8 +90,13 @@ class P104_MaximumDepthOfBinaryTree {
      */
     class Solution {
         ArrayDeque<TreeNode> arrayDeque = new ArrayDeque<>();
-
-        int res = 0;
+        public int maxDepth(TreeNode root) {
+            if (root == null) {
+                return 0;
+            }
+            return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
+        }
+        /*int res = 0;
         public int maxDepth(TreeNode root) {
             int level = 0;
             dfs(root, level);
@@ -107,7 +112,7 @@ class P104_MaximumDepthOfBinaryTree {
             dfs(root.left, level);
             dfs(root.right, level);
             return level;
-        }
+        }*/
     /*public int maxDepth(TreeNode root) {
 		if (root == null) {
 			return 0;
