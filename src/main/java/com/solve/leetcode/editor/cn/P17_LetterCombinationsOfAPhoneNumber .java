@@ -56,7 +56,7 @@ class P17_LetterCombinationsOfAPhoneNumber {
     public static void main(String[] args) {
         //测试代码
         Solution solution = new P17_LetterCombinationsOfAPhoneNumber().new Solution();
-        solution.letterCombinations("234");
+        solution.letterCombinations("23");
     }
 
     //力扣代码
@@ -68,13 +68,12 @@ class P17_LetterCombinationsOfAPhoneNumber {
         List<String> ans = new ArrayList<>();
         public List<String> letterCombinations(String digits) {
             int n = digits.length();
-            if (n == 0) {
-                return Collections.emptyList();
-            }
+            if (n == 0) return ans;
             path = new char[n];
             dfs(digits,0);
             return ans;
         }
+
         public void dfs(String digits, int u) {
             if (u == digits.length()) {
                 ans.add(String.valueOf(path));
