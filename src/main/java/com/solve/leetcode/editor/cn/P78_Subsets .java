@@ -57,19 +57,15 @@ class Solution {
         dfs(nums,0);
         return ans;
     }
-    /*public void dfs(int[] nums, int u) {
+    public void dfs(int[] nums, int u) {
         ans.add(new ArrayList<>(path));
-        if (u == nums.length) {
-            return;
-        }
-        for (int i = 0; i < nums.length; i++) {
-            path.add(nums[u]);
-            dfs(nums, u+1);
+        for (int i = u; i < nums.length; i++) {
+            path.add(nums[i]);
+            dfs(nums, i+1);
             path.remove(path.size() - 1);
         }
-
-    }*/
-    public void dfs(int[] nums, int u) {
+    }
+    /*public void dfs(int[] nums, int u) {
         if (u == nums.length) {
             ans.add(new ArrayList<>(path));
             return;
@@ -80,7 +76,7 @@ class Solution {
         path.add(nums[u]);
         dfs(nums,u+1);
         path.remove(path.size() - 1);
-    }
+    }*/
 
 }
 //leetcode submit region end(Prohibit modification and deletion)
