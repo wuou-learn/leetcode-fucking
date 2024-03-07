@@ -67,10 +67,11 @@ class P17_LetterCombinationsOfAPhoneNumber {
         char [] path;
         List<String> ans = new ArrayList<>();
         public List<String> letterCombinations(String digits) {
-            int n = digits.length();
-            if (n == 0) return ans;
-            path = new char[n];
-            dfs(digits,0);
+            if (digits.isEmpty()) {
+                return ans;
+            }
+            path = new char[digits.length()];
+            dfs(digits, 0);
             return ans;
         }
 
@@ -78,8 +79,8 @@ class P17_LetterCombinationsOfAPhoneNumber {
             if (u == digits.length()) {
                 ans.add(String.valueOf(path));
             } else {
-                for (char c : d[digits.charAt(u) - '0'].toCharArray()) {
-                    path[u] = c;
+                for (char i : d[digits.charAt(u) - '0'].toCharArray()) {
+                    path[u] = i;
                     dfs(digits, u+1);
                 }
             }
