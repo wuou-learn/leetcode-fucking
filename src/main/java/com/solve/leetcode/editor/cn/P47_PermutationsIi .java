@@ -34,6 +34,7 @@
 package com.solve.leetcode.editor.cn;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -54,27 +55,28 @@ class P47_PermutationsIi{
 class Solution {
     List<List<Integer>> ans = new ArrayList<>();
     List<Integer> path = new ArrayList<>();
-    HashSet<String> set = new HashSet<>();
     boolean [] b;
     public List<List<Integer>> permuteUnique(int[] nums) {
+        Arrays.sort(nums);
         b = new boolean[nums.length];
         dfs(nums, 0);
         return ans;
     }
     public void dfs(int [] nums, int u) {
-        if (u == nums.length && !set.contains(path.toString())) {
-            set.add(path.toString());
+        if (u == nums.length) {
             ans.add(new ArrayList<>(path));
         }
         for (int i = 0; i < nums.length; i++) {
             if (!b[i]) {
+                if (i > 0 && nums[i-1] == nums[i] && !b[i-1]) {
+                    continue;
+                }
                 path.add(nums[i]);
                 b[i] = true;
                 dfs(nums, u+1);
                 b[i] = false;
                 path.remove(path.size() - 1);
             }
-
         }
     }
 
