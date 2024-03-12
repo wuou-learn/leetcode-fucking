@@ -45,7 +45,7 @@ class P78_Subsets{
     public static void main(String[] args) {
         //测试代码
         Solution solution = new P78_Subsets().new Solution();
-        solution.subsets(new int[]{1,2,3});
+        solution.subsets(new int[]{0,1,2});
     }
 
 //力扣代码
