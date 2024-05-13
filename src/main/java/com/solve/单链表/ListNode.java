@@ -7,8 +7,8 @@ package com.solve.单链表;
  * @Version 1.0.0
  */
 public class ListNode {
-    int val;
-    ListNode next;
+    public int val;
+    public ListNode next;
 
     public ListNode() {
     }
