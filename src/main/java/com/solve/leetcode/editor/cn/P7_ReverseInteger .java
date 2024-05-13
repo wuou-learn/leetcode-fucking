@@ -81,13 +81,20 @@ class Solution {
     }*/
 
     public int reverse(int x) {
-        long r = 0L;
+        int r = 0;
         // 秦九韶算法
         while (x != 0) {
+            // 溢出情况考虑
+            if (r > 0 && r > (Integer.MAX_VALUE - r % 10) / 10) {
+                return 0;
+            }
+            if (r < 0 && r < (Integer.MIN_VALUE - r % 10) / 10) {
+                return 0;
+            }
             r = r * 10 + x % 10;
             x /= 10;
         }
-        return r > Integer.MAX_VALUE || r < Integer.MIN_VALUE ? 0 : (int) r;
+        return r;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
