@@ -63,7 +63,8 @@ class P9_PalindromeNumber{
 //力扣代码
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
-    public boolean isPalindrome(int x) {
+    // 转成字符串比较
+    /*public boolean isPalindrome(int x) {
         if (x < 0) {
             return false;
         }
@@ -74,6 +75,18 @@ class Solution {
             }
         }
         return true;
+    }*/
+    public boolean isPalindrome(int x) {
+        if (x < 0) {
+            return false;
+        }
+        int temp = x;
+        int r = 0;
+        while (temp != 0) {
+            r = r * 10 + temp % 10;
+            temp /= 10;
+        }
+        return x == r;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
