@@ -81,15 +81,18 @@ class P12_IntegerToRoman{
     public static void main(String[] args) {
         //测试代码
         Solution solution = new P12_IntegerToRoman().new Solution();
+        solution.intToRoman(3749);
     }
 
 //力扣代码
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
-    private static final String [] units = new String[]{"I","II","III","IV","V","VI","VII","VIII","IX"};
+    /*private static final String [] units = new String[]{"I","II","III","IV","V","VI","VII","VIII","IX"};
     private static final String [] tens = new String[]{"X","XX","XXX","XL","L","LX","LXX","LXXX","XC"};
     private static final String [] hundreds = new String[]{"C","CC","CCC","CD","D","DC","DCC","DCCC","CM"};
     private static final String [] thousands = new String[]{"M","MM","MMM"};
+
+    // 枚举 硬拼字符串
     public String intToRoman(int num) {
         int i = num % 10;
         String unit = i == 0 ? "" : units[i-1];
@@ -116,6 +119,19 @@ class Solution {
             return thousand+hundred+ten+unit;
         }
         return null;
+    }*/
+    private  final String [] units = new String[]{"I","IV","V","IX","X","XL","L","XC","C","CD","D","CM","M"};
+    private  final int [] values = new int[]{1,4,5,9,10,40,50,90,100,400,500,900,1000};
+    // 枚举出不相同的罗马数字
+    public String intToRoman(int num) {
+        StringBuilder res = new StringBuilder();
+        for (int i = 12; i >= 0 ; i--) {
+            while (num >= values[i]) {
+                num -= values[i];
+                res.append(units[i]);
+            }
+        }
+        return res.toString();
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
