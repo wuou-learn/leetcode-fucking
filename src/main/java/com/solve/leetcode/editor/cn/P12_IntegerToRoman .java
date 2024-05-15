@@ -120,8 +120,8 @@ class Solution {
         }
         return null;
     }*/
-    private  final String [] units = new String[]{"I","IV","V","IX","X","XL","L","XC","C","CD","D","CM","M"};
-    private  final int [] values = new int[]{1,4,5,9,10,40,50,90,100,400,500,900,1000};
+    private final String [] units = new String[]{"I","IV","V","IX","X","XL","L","XC","C","CD","D","CM","M"};
+    private final int [] values = new int[]{1,4,5,9,10,40,50,90,100,400,500,900,1000};
     // 枚举出不相同的罗马数字
     public String intToRoman(int num) {
         StringBuilder res = new StringBuilder();
