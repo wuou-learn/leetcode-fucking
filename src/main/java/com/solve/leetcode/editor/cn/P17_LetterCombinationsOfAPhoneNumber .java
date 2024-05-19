@@ -77,10 +77,10 @@ class P17_LetterCombinationsOfAPhoneNumber {
 
         public void dfs(String digits, int u) {
             if (u == digits.length()) {
-                ans.add(String.valueOf(path));
+                ans.add(new String(path));
             } else {
-                for (char i : d[digits.charAt(u) - '0'].toCharArray()) {
-                    path[u] = i;
+                for (char c : d[digits.charAt(u) - '0'].toCharArray()) {
+                    path[u] = c;
                     dfs(digits, u+1);
                 }
             }
