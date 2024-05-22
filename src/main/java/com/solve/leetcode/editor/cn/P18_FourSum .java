@@ -77,8 +77,8 @@ class Solution {
                         continue;
                     }
                     // k < l - 1 避免指针k与l 重复
-                    while (k < l - 1 && nums[i] + nums[j] + nums[k] + nums[l-1] >= target) l--;
-                    if (nums[i] + nums[j] + nums[k] + nums[l] == target) {
+                    while (k < l - 1 && (long)nums[i] + (long)nums[j] + nums[k] + nums[l-1] >= target) l--;
+                    if ((long)nums[i] + (long)nums[j] + nums[k] + nums[l] == target) {
                         List<Integer> list = new ArrayList<>();
                         list.add(nums[i]);
                         list.add(nums[j]);
