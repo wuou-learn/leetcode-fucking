@@ -48,23 +48,24 @@ class P22_GenerateParentheses{
 class Solution {
     List<String> ans = new ArrayList<>();
     public List<String> generateParenthesis(int n) {
-
-        dfs(n,0,0,"");
+        dfs(n,n,"");
         return ans;
     }
-    public void dfs(int n, int lc, int rc, String seq){
-        if (lc == n && rc == n) {
-            ans.add(seq);
-            return;
+
+    public void dfs (int l, int r, String res) {
+        if (l == 0 && r == 0) {
+            ans.add(res);
+        } else {
+            if (l < r) {
+                dfs(l, r-1, res + ")");
+            }
+            if (l != 0) {
+                dfs(l-1, r, res + "(");
+            }
         }
-        // 任意前缀中'('的数量>=')'的数量
-        if (lc < n) {
-            dfs(n, lc + 1, rc, seq+"(");
-        }
-        if (rc < n && lc > rc) {
-            dfs(n, lc, rc+1, seq+")");
-        }
+
     }
+
 }
 //leetcode submit region end(Prohibit modification and deletion)
 
