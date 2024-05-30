@@ -43,6 +43,7 @@ class P28_FindTheIndexOfTheFirstOccurrenceInAString{
     public static void main(String[] args) {
         //测试代码
         Solution solution = new P28_FindTheIndexOfTheFirstOccurrenceInAString().new Solution();
+        solution.strStr("abbaba", "aba");
     }
 
 //力扣代码
