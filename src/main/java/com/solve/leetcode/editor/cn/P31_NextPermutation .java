@@ -65,7 +65,7 @@ class P31_NextPermutation{
     public static void main(String[] args) {
         //测试代码
         Solution solution = new P31_NextPermutation().new Solution();
-        solution.nextPermutation(new int[]{2,3,5,4,1});
+        solution.nextPermutation(new int[]{1,3,2});
     }
 
 //力扣代码
@@ -73,35 +73,35 @@ class P31_NextPermutation{
 class Solution {
 
     public void nextPermutation(int[] nums) {
-        int n = nums.length - 1;
-        while (n > 0 && nums[n-1] >= nums[n]) {
-            n --;
+        // 找到数列中最大值，并且开始降序的临界点
+        int k = nums.length - 1;
+        while (k > 0 && nums[k-1] >= nums[k]) {
+            k--;
         }
-        if (n <= 0) {
+        if (k <= 0) {
             reverse(nums,0,nums.length-1);
         } else {
-            int k = n;
-            // 找到与第n个数 差值最小的一位进行交换
-            while (k < nums.length && nums[k] > nums[n-1]) {
-                k++;
+            int t = k;
+            while (t < nums.length && nums[t] > nums[k-1]) {
+                t++;
             }
-            swap(nums,n-1,k-1);
-
-            // 反转第n个数以后的数组
-            reverse(nums, n, nums.length - 1);
-        }
-
-    }
-    public void reverse(int [] nums, int begin, int end) {
-        for (;begin<=end && end>=0 ; begin++, end--) {
-            swap(nums,begin,end);
+            swap(nums, k-1, t-1);
+            reverse(nums,k,nums.length-1);
         }
     }
-    public void swap(int [] nums, int s, int r) {
-        int temp = nums[s];
-        nums[s] = nums[r];
-        nums[r] = temp;
+
+    public void reverse(int[] nums, int begin, int end) {
+        for (;begin <= end && end >= 0; begin++, end--) {
+            swap(nums, begin, end);
+        }
     }
+
+    public void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+
     /* 暴力解 超时
     List<List<Integer>> ans = new ArrayList<>();
     List<Integer> path = new ArrayList<>();
