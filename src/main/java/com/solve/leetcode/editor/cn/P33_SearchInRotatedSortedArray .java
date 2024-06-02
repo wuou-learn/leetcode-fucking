@@ -64,6 +64,7 @@ class P33_SearchInRotatedSortedArray{
 class Solution {
     public int search(int[] nums, int target) {
         int l = 0, r = nums.length - 1;
+        // 找到升序数组的分界点
         while (l < r) {
             int mid = l + r + 1 >> 1;
             if (nums[mid] >= nums[0]) {
@@ -72,12 +73,14 @@ class Solution {
                 r = mid - 1;
             }
         }
+        // 找到target属于的哪一段的数组
         if (target >= nums[0]) {
             l = 0;
         } else {
             l = r + 1;
             r = nums.length - 1;
         }
+        // 二分找到临界点
         while (l < r) {
             int mid = l + r >> 1;
             if (nums[mid] >= target) {
