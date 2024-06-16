@@ -62,20 +62,24 @@ class Solution {
         dfs(nums, 0);
         return ans;
     }
+
     public void dfs(int [] nums, int u) {
         if (u == nums.length) {
             ans.add(new ArrayList<>(path));
+            return ;
         }
         for (int i = 0; i < nums.length; i++) {
             if (!b[i]) {
-                if (i > 0 && nums[i-1] == nums[i] && !b[i-1]) {
+                // 按照顺序选取相同元素
+                // 前一个相同元素未取时则不用该元素
+                if (i != 0 && nums[i] == nums[i-1] && b[i-1]) {
                     continue;
                 }
-                path.add(nums[i]);
                 b[i] = true;
+                path.add(nums[i]);
                 dfs(nums, u+1);
                 b[i] = false;
-                path.remove(path.size() - 1);
+                path.remove(path.size()-1);
             }
         }
     }
