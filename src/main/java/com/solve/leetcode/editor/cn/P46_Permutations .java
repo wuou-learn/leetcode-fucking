@@ -56,25 +56,31 @@ class P46_Permutations{
 //力扣代码
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
+
     List<List<Integer>> ans = new ArrayList<>();
+
     List<Integer> path = new ArrayList<>();
+
     boolean [] b;
     public List<List<Integer>> permute(int[] nums) {
-        b = new boolean[nums.length];
+        int n = nums.length;
+        b = new boolean[n];
         dfs(nums, 0);
         return ans;
     }
+
     public void dfs(int [] nums, int u) {
         if (u == nums.length) {
             ans.add(new ArrayList<>(path));
+            return;
         }
         for (int i = 0; i < nums.length; i++) {
             if (!b[i]) {
-                b[i] = true;
                 path.add(nums[i]);
+                b[i] = true;
                 dfs(nums, u+1);
                 b[i] = false;
-                path.remove(path.size() - 1);
+                path.remove(path.size()-1);
             }
         }
     }
