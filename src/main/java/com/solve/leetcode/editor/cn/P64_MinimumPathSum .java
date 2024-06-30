@@ -50,22 +50,28 @@ class P64_MinimumPathSum{
 //力扣代码
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
-    public int minPathSum(int[][] grid) {
-        int [][] dp = new int[grid.length+1][grid[0].length+1];
-        for (int i = 1; i <= grid.length; i++) {
-            for (int j = 1; j <= grid[0].length; j++) {
+    public int minPathSum(int[][] a) {
+        int x = a.length;
+        int y = a[0].length;
+        int [][] dp = new int[x+1][y+1];
+        dp[1][1] = a[0][0];
+        for (int i = 1; i <= x; i++) {
+            for (int j = 1; j <= y; j++) {
+                if (i == 1 && j == 1) {
+                    continue;
+                }
                 if (i == 1) {
-                    dp[i][j] = dp[i][j-1]+grid[i-1][j-1];
+                    dp[i][j] = dp[i][j-1] + a[i-1][j-1];
                     continue;
                 }
                 if (j == 1) {
-                    dp[i][j] = dp[i-1][j]+grid[i-1][j-1];
+                    dp[i][j] = dp[i-1][j] + a[i-1][j-1];
                     continue;
                 }
-                dp[i][j] = Math.min(dp[i-1][j]+grid[i-1][j-1],dp[i][j-1]+grid[i-1][j-1]);
+                dp[i][j] = Math.min(dp[i][j-1] + a[i-1][j-1], dp[i-1][j] + a[i-1][j-1]);
             }
         }
-        return dp[grid.length][grid[0].length];
+        return dp[x][y];
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
