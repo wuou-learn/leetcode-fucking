@@ -52,13 +52,18 @@ class P63_UniquePathsIi{
     public static void main(String[] args) {
         //测试代码
         Solution solution = new P63_UniquePathsIi().new Solution();
-        solution.uniquePathsWithObstacles(new int[][]{{0,0,0},{0,1,0},{0,0,0}});
+//        solution.uniquePathsWithObstacles(new int[][]{{0,0,0},{0,1,0},{0,0,0}});
+//        solution.uniquePathsWithObstacles(new int[][]{{1,0}});
+        solution.uniquePathsWithObstacles(new int[][]{{0,0},{1,1},{0,0}});
     }
 
 //力扣代码
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        if (obstacleGrid[0][0] == 1) {
+            return 0;
+        }
         int x = obstacleGrid.length;
         int y = obstacleGrid[0].length;
         int [][] dp = new int [x+1][y+1];
@@ -69,9 +74,8 @@ class Solution {
                     dp[i][j] = 0;
                     continue;
                 }
-                if (i == 1 && j == 1) {
-                    continue;
-                }
+                if (i == 1 && j == 1) continue;
+
                 dp[i][j] = dp[i-1][j] + dp[i][j-1];
             }
         }
