@@ -64,56 +64,55 @@ class P60_PermutationSequence{
         //测试代码
         Solution solution = new P60_PermutationSequence().new Solution();
         solution.getPermutation(3,3);
+//        String str = "123";
+//        String substring1 = str.substring(0, 1);
+//        String substring2 = str.substring(0, 2);
+//        String substring3 = str.substring(0, 3);
     }
 
 //力扣代码
 //leetcode submit region begin(Prohibit modification and deletion)
-    class Solution {
-    int[] path;
-    boolean [] b;
-    int i = 0;
+class Solution {
+
     String res = "";
+    int [] nums;
+    boolean [] path;
+    int idx = 0;
     public String getPermutation(int n, int k) {
-        path = new int[n];
-        int[] nums = new int[n];
+        nums = new int[n];
+        path = new boolean[n];
         for (int i = 1; i <= n; i++) {
             nums[i-1] = i;
         }
-        permuteUnique(nums,k);
+
+
+        dfs(0,k,n,"");
+
         return res;
     }
-
-
-    public void permuteUnique(int[] nums,int k) {
-        b = new boolean[nums.length];
-        dfs(nums, 0,k);
-    }
-    public void dfs(int [] nums, int u,int k) {
+    public void dfs(int u, int k, int n, String str) {
         if (!res.isEmpty()) {
             return;
         }
-        if (u == nums.length && ++i == k) {
-            res = this.toString();
+        if (u > n) {
             return;
         }
-        for (int i = 0; i < nums.length; i++) {
-            if (!b[i]) {
-                path[u] = nums[i];
-                b[i] = true;
-                dfs(nums, u+1,k);
-                b[i] = false;
-                path[u] = 0;
-            }
+        if (n == u && ++idx == k) {
+            res = str;
+            return;
+        }
 
+        for (int i = 0; i < nums.length; i++) {
+            if (!path[i]) {
+                str += nums[i];
+                path[i] = true;
+                dfs(u+1, k, n, str);
+                str = str.substring(0, str.length() - 1);
+                path[i] = false;
+            }
         }
     }
-    public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i : path) {
-            stringBuilder.append(i);
-        }
-        return stringBuilder.toString();
-    }
+
 }
 //leetcode submit region end(Prohibit modification and deletion)
 
