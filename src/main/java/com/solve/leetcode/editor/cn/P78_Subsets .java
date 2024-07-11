@@ -57,14 +57,15 @@ class Solution {
         dfs(nums,0);
         return ans;
     }
-    public void dfs(int[] nums, int u) {
+    private void dfs(int [] nums, int u) {
         ans.add(new ArrayList<>(path));
         for (int i = u; i < nums.length; i++) {
             path.add(nums[i]);
             dfs(nums, i+1);
-            path.remove(path.size() - 1);
+            path.remove(path.size()-1);
         }
     }
+
     /*public void dfs(int[] nums, int u) {
         if (u == nums.length) {
             ans.add(new ArrayList<>(path));
