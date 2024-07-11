@@ -61,17 +61,18 @@ class Solution {
         dfs(n,k,1);
         return ans;
     }
-    public void dfs(int n, int k, int start) {
+    private void dfs(int n, int k, int u) {
         if (k == 0) {
             ans.add(new ArrayList<>(path));
-            return ;
+            return;
         }
-        for (int i = start; i <= n; i++) {
+        for (int i = u; i <= n; i++) {
             path.add(i);
             dfs(n,k-1,i+1);
-            path.remove(path.size() - 1);
+            path.remove(path.size()-1);
         }
     }
+
 }
 //leetcode submit region end(Prohibit modification and deletion)
 
