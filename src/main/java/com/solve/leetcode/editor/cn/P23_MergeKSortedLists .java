@@ -65,14 +65,10 @@ class P23_MergeKSortedLists{
     public static void main(String[] args) {
         //测试代码
         Solution solution = new P23_MergeKSortedLists().new Solution();
-        ListNode listNode1 = new ListNode(1);
-        ListNode listNode2 = new ListNode(2);
-        ListNode listNode3 = new ListNode(3);
-        listNode1.next = listNode2;
-        listNode2.next = listNode3;
+        ListNode listNode1 = new ListNode(2);
 
-        ListNode listNode4 = new ListNode(1);
-        solution.mergeKLists(new ListNode[]{listNode1,listNode4});
+        ListNode listNode4 = new ListNode(-1);
+        solution.mergeKLists(new ListNode[]{listNode1,null,listNode4});
     }
 
 //力扣代码
@@ -128,21 +124,36 @@ class Solution {
 
     // 优先级队列
     public ListNode mergeKLists(ListNode[] lists) {
-        PriorityQueue<Integer> priorityQueue = new PriorityQueue<>();
-        for (ListNode list : lists) {
-            while (list != null) {
-                priorityQueue.offer(list.val);
-                list = list.next;
-            }
+        if (lists.length == 0) return null;
+        if (lists.length == 1) return lists[0];
+        ListNode res = lists[0];
+        for (int i = 1; i < lists.length; i ++) {
+            res = merge(res, lists[i]);
         }
+        return res;
+    }
+
+    public ListNode merge(ListNode l1, ListNode l2) {
         ListNode dummy = new ListNode(-1);
-        ListNode tail = dummy;
-        while (!priorityQueue.isEmpty()) {
-            Integer poll = priorityQueue.poll();
-            tail.next = new ListNode(poll);
-            tail = tail.next;
+        ListNode res = dummy;
+        while (l1 != null && l2 != null) {
+            if (l1.val < l2.val) {
+                dummy.next = l1;
+                l1 = l1.next;
+            } else {
+                dummy.next = l2;
+                l2 = l2.next;
+            }
+            dummy = dummy.next;
+
         }
-        return dummy.next;
+        if (l1 != null) {
+            dummy.next = l1;
+        }
+        if (l2 != null) {
+            dummy.next = l2;
+        }
+        return res.next;
     }
 
 }

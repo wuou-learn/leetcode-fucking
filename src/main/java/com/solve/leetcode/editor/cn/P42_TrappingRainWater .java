@@ -34,6 +34,8 @@
 
 package com.solve.leetcode.editor.cn;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Stack;
 
 /**
@@ -51,19 +53,24 @@ class P42_TrappingRainWater{
 //力扣代码
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
-    public int trap(int[] height) {
+    public int trap(int[] h) {
+        Deque<Integer> stack = new ArrayDeque<>();
         int res = 0;
         int last = 0;
-        Stack<Integer> stk = new Stack<>();
-        for (int i = 0; i < height.length; i++) {
-            while (!stk.isEmpty() && height[i] > height[stk.peek()]) {
-                res += (height[stk.peek()] - last) * (i - 1 - stk.peek());
-                last = height[stk.pop()];
+        for (int i = 0; i < h.length; i++) {
+            if (stack.isEmpty()) {
+                stack.add(i);
+                continue;
             }
-            if (!stk.isEmpty()) {
-                res += (height[i] - last) * (i - 1 - stk.peek());
+            while (!stack.isEmpty() && h[i] > h[stack.getLast()]) {
+                int idx = stack.pollLast();
+                res += (i - idx - 1) * (h[idx] - last);
+                last = h[idx];
             }
-            stk.push(i);
+            if (!stack.isEmpty()) {
+                res += (i - stack.getLast() - 1) * (h[i] - last);
+            }
+            stack.add(i);
         }
 
         return res;

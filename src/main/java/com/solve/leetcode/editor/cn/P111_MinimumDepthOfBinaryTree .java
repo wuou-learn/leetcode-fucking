@@ -49,8 +49,6 @@ package com.solve.leetcode.editor.cn;
 
 import com.solve.common.TreeNode;
 
-import java.util.ArrayDeque;
-
 /**
  * 二叉树的最小深度
  * @author wuou
@@ -65,11 +63,28 @@ class P111_MinimumDepthOfBinaryTree{
         TreeNode treeNode2 = new TreeNode(3);
         TreeNode treeNode3 = new TreeNode(4);
         TreeNode treeNode4 = new TreeNode(5);
+        root.right = treeNode1;
+        treeNode1.right = treeNode2;
+        treeNode2.right = treeNode3;
+        treeNode3.right = treeNode4;
+        solution.minDepth(root);
+
+        //测试代码
+        /*TreeNode root = new TreeNode();
+        root.val=3;
+        TreeNode treeNode1 = new TreeNode();
+        treeNode1.val=9;
+        TreeNode treeNode2 = new TreeNode();
+        treeNode2.val=20;
+        TreeNode treeNode3 = new TreeNode();
+        treeNode3.val=15;
+        TreeNode treeNode4 = new TreeNode();
+        treeNode4.val=7;
         root.left = treeNode1;
         root.right = treeNode2;
-        treeNode1.left = treeNode3;
+        treeNode2.left = treeNode3;
         treeNode2.right = treeNode4;
-        solution.minDepth(root);
+        solution.minDepth(root);*/
     }
 
 //力扣代码
@@ -90,31 +105,15 @@ class P111_MinimumDepthOfBinaryTree{
  * }
  */
 class Solution {
-    ArrayDeque<TreeNode> arrayDeque = new ArrayDeque<>();
     public int minDepth(TreeNode root) {
-        if (root == null) {
-            return 0;
-        }
-        arrayDeque.offer(root);
-        int level = 0;
-        while (!arrayDeque.isEmpty()) {
-            int size = arrayDeque.size();
-            level++;
-            for (int i = 0; i < size; i++) {
-                TreeNode poll = arrayDeque.poll();
-                if (level > 1 && poll.left == null && poll.right == null) {
-                    return level;
-                }
-                if (poll.left != null) {
-                    arrayDeque.offer(poll.left);
-                }
-                if (poll.right != null) {
-                    arrayDeque.offer(poll.right);
-                }
-            }
-        }
-        return level;
+        if (root == null) return 0;
+        if (root.left == null && root.right == null) return 1;
+        if (root.left != null && root.right == null) return minDepth(root.left) + 1;
+        if (root.right != null && root.left == null) return minDepth(root.right) + 1;
+
+        return Math.min(minDepth(root.left), minDepth(root.right)) + 1;
     }
+
 }
 //leetcode submit region end(Prohibit modification and deletion)
 

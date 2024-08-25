@@ -45,6 +45,9 @@ package com.solve.leetcode.editor.cn;
 
 import com.solve.单链表.ListNode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 删除链表的倒数第 N 个结点
  * @author wuou
@@ -55,15 +58,8 @@ class P19_RemoveNthNodeFromEndOfList{
         //测试代码
         Solution solution = new P19_RemoveNthNodeFromEndOfList().new Solution();
         ListNode l1 = new ListNode(1);
-        ListNode l2 = new ListNode(2);
-        ListNode l3 = new ListNode(3);
-        ListNode l4 = new ListNode(4);
-        ListNode l5 = new ListNode(5);
-        l1.next = l2;
-        l2.next = l3;
-        l3.next = l4;
-        l4.next = l5;
-        solution.removeNthFromEnd(l1,2);
+        l1.next = null;
+        solution.removeNthFromEnd(l1,1);
     }
 
 //力扣代码
@@ -80,22 +76,21 @@ class P19_RemoveNthNodeFromEndOfList{
  */
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        ListNode dummy = new ListNode(-1);
-        dummy.next = head;
-        int l = 0;
-        for (ListNode p = dummy; p != null; p = p.next) {
-            l++;
+        ListNode res = head;
+        List<ListNode> indexListNode = new ArrayList<>();
+        while (head != null) {
+            indexListNode.add(head);
+            head = head.next;
         }
-
-        // 当n=2 为倒数第二个数，则遍历到倒数第三个数停下来，将指针更新
-        // 倒数第三个数的index=2 < 6-2-1
-        int idx = l - n - 1;
-        ListNode p = dummy;
-        for (int i = 0; i < idx; i++) {
-            p = p.next;
+        int i = indexListNode.size() - n - 1;
+        if (i >= 0 && i < indexListNode.size()) {
+            ListNode l = indexListNode.get(i);
+            l.next = l.next.next;
         }
-        p.next = p.next.next;
-        return dummy.next;
+        if (i < 0) {
+            res = res.next;
+        }
+        return res;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

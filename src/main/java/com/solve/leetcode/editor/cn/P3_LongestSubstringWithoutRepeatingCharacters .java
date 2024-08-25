@@ -54,6 +54,7 @@ class P3_LongestSubstringWithoutRepeatingCharacters{
         //测试代码
         Solution solution = new P3_LongestSubstringWithoutRepeatingCharacters().new Solution();
         solution.lengthOfLongestSubstring("pwwkew");
+//        solution.lengthOfLongestSubstring("abcabcbb");
     }
 
 //力扣代码
@@ -61,15 +62,14 @@ class P3_LongestSubstringWithoutRepeatingCharacters{
 class Solution {
     public int lengthOfLongestSubstring(String s) {
         Map<Character, Integer> map = new HashMap<>();
-        char[] array = s.toCharArray();
         int res = 0;
-        for (int i = 0, j = 0; i < array.length; i++) {
-            map.put(array[i], map.getOrDefault(array[i], 0)+1);
-            while (map.getOrDefault(array[i],0) > 1) {
-                char end = array[j++];
-                map.put(end, map.get(end)-1);
+        for (int i = 0, end = 0; i < s.length(); i++) {
+            map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0) + 1);
+            while (map.get(s.charAt(i)) > 1) {
+                map.put(s.charAt(end), map.get(s.charAt(end) - 1));
+                end++;
             }
-            res = Math.max(res, i-j+1);
+            res = Math.max(res, i - end + 1);
         }
         return res;
     }

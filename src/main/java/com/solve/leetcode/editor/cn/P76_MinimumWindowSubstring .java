@@ -67,41 +67,38 @@ class P76_MinimumWindowSubstring{
     public static void main(String[] args) {
         //测试代码
         Solution solution = new P76_MinimumWindowSubstring().new Solution();
-        solution.minWindow("bbaa", "aba");
+        solution.minWindow("ADOBECODEBANC", "ABC");
     }
 
 //力扣代码
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public String minWindow(String s, String t) {
-        /**
-         * 开一个hash表 记录t中的每个字母出现的次数 t="ABC" A 1 B 1 c 1
-         * 记录一个cnt，在窗口内找到有效字母的个数 t的有效字母个数是3
-         * 遍历s, 设滑动窗口 i j
-         * 如果有效字母A超过了1，则i++
-         */
         Map<Character, Integer> map = new HashMap<>();
-        char[] charArray = t.toCharArray();
-        for (int i = 0; i < charArray.length; i++) {
-            map.put(charArray[i], map.getOrDefault(charArray[i], 0)+1);
+        for (int i = 0; i < t.length(); i++) {
+            map.put(t.charAt(i), map.getOrDefault(t.charAt(i), 0) + 1);
         }
         Map<Character, Integer> path = new HashMap<>();
         int cnt = 0;
         String res = "";
-        for (int i = 0,j = 0; j < s.length(); j++) {
+        for (int i = 0, j = 0; j < s.length(); j++) {
             char c = s.charAt(j);
-            path.put(c, path.getOrDefault(c, 0)+1);
+            path.put(c, path.getOrDefault(c, 0) + 1);
             if (map.containsKey(c) && map.get(c) >= path.get(c)) {
-                cnt ++;
+                cnt++;
             }
             while (i <= j && (!map.containsKey(s.charAt(i)) || path.get(s.charAt(i)) > map.get(s.charAt(i)))) {
-                path.put(s.charAt(i), path.get(s.charAt(i ++)) - 1);
+                i++;
             }
-            if (cnt == t.length() && (res.isEmpty() || j - i + 1 < res.length())) {
-                res = s.substring(i, j+1);
+            if (cnt == t.length()) {
+                String str = s.substring(i, j+1);
+                if (res.isEmpty()) {
+                    res = str;
+                    continue;
+                }
+                res = str.length() < res.length() ? str : res;
             }
         }
-
         return res;
     }
 }

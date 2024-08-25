@@ -2,10 +2,8 @@ package com.solve.leetcode.editor.cn;
 
 import com.solve.common.TreeNode;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author  wuou

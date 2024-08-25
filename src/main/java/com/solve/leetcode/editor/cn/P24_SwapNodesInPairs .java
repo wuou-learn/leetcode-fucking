@@ -39,6 +39,9 @@ package com.solve.leetcode.editor.cn;
 
 import com.solve.单链表.ListNode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 两两交换链表中的节点
  * @author wuou
@@ -48,6 +51,14 @@ class P24_SwapNodesInPairs{
     public static void main(String[] args) {
         //测试代码
         Solution solution = new P24_SwapNodesInPairs().new Solution();
+        ListNode listNode1 = new ListNode(1);
+        ListNode listNode2 = new ListNode(2);
+        ListNode listNode3 = new ListNode(3);
+        ListNode listNode4 = new ListNode(4);
+        listNode1.next = listNode2;
+        listNode2.next = listNode3;
+        listNode3.next = listNode4;
+        solution.swapPairs(listNode1);
     }
 
 //力扣代码
@@ -64,17 +75,19 @@ class P24_SwapNodesInPairs{
  */
 class Solution {
     public ListNode swapPairs(ListNode head) {
-        ListNode dummy = new ListNode(-1);
-        dummy.next = head;
-        for (ListNode p = dummy; p.next !=null && p.next.next != null;) {
-            ListNode a = p.next;
-            ListNode b = a.next;
-            p.next = b;
-            a.next = b.next;
-            b.next = a;
-            p = a;
+        if (head.next == null) return head;
+        List<ListNode> list = new ArrayList<>();
+        while (head != null) {
+            list.add(head);
+            head = head.next;
         }
-        return dummy.next;
+        for (int i = 1; i < list.size(); i += 2) {
+            ListNode listNode1 = list.get(i-1);
+            ListNode listNode2 = list.get(i);
+            listNode1.next = listNode2.next;
+            listNode2.next = listNode1;
+        }
+        return list.get(0);
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

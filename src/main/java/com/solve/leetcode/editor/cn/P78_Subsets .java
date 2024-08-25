@@ -45,7 +45,7 @@ class P78_Subsets{
     public static void main(String[] args) {
         //测试代码
         Solution solution = new P78_Subsets().new Solution();
-        solution.subsets(new int[]{0,1,2});
+        solution.subsets(new int[]{1,2,3});
     }
 
 //力扣代码
@@ -59,6 +59,10 @@ class Solution {
     }
     private void dfs(int [] nums, int u) {
         ans.add(new ArrayList<>(path));
+        for (int i : path) {
+            System.out.print(" i=" + i);
+        }
+        System.out.println();
         for (int i = u; i < nums.length; i++) {
             path.add(nums[i]);
             dfs(nums, i+1);
