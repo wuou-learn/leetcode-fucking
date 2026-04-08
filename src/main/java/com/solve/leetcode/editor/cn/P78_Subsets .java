@@ -51,37 +51,23 @@ class P78_Subsets{
 //力扣代码
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
-    List<List<Integer>> ans = new ArrayList<>();
-    List<Integer> path = new ArrayList<>();
     public List<List<Integer>> subsets(int[] nums) {
-        dfs(nums,0);
-        return ans;
+        List<List<Integer>> res = new ArrayList<>();
+
+        dfs(nums, 0, res, new ArrayList<>());
+
+        return res;
     }
-    private void dfs(int [] nums, int u) {
-        ans.add(new ArrayList<>(path));
-        for (int i : path) {
-            System.out.print(" i=" + i);
-        }
-        System.out.println();
-        for (int i = u; i < nums.length; i++) {
-            path.add(nums[i]);
-            dfs(nums, i+1);
-            path.remove(path.size()-1);
+
+    private void dfs(int[] nums, int i, List<List<Integer>> res, ArrayList<Integer> path) {
+        res.add(new ArrayList<>(path));
+        for (int start = i; start < nums.length; start++) {
+            path.add(nums[start]);
+            dfs(nums, start + 1, res, path);
+            path.remove(path.size() - 1);
         }
     }
 
-    /*public void dfs(int[] nums, int u) {
-        if (u == nums.length) {
-            ans.add(new ArrayList<>(path));
-            return;
-        }
-        // 不放nums[u]
-        dfs(nums, u+1);
-        // 放nums[u]
-        path.add(nums[u]);
-        dfs(nums,u+1);
-        path.remove(path.size() - 1);
-    }*/
 
 }
 //leetcode submit region end(Prohibit modification and deletion)

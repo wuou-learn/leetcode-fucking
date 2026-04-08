@@ -58,15 +58,17 @@ class Solution {
         int res = 0;
         int l = 0;
         int r = height.length - 1;
-        // 左右两边的索引在最优解的两边，假设左边最先到达边界，那么右边的索引会一直往中间靠拢，直至找到最优解
         while (l < r) {
-            res = Math.max(res, Math.min(height[l], height[r])*(r-l));
+            int h = Math.min(height[l], height[r]);
+            int w = r - l;
+            res = Math.max(res, h * w);
             if (height[l] < height[r]) {
                 l++;
             } else {
                 r--;
             }
         }
+
         return res;
 
     }

@@ -46,9 +46,8 @@
 
 package com.solve.leetcode.editor.cn;
 
-import javafx.util.Pair;
-
 import java.util.ArrayDeque;
+import java.util.Deque;
 
 /**
  * 岛屿数量
@@ -67,48 +66,36 @@ class P200_NumberOfIslands {
 //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
 
-        char[][] g;
-        int [] dx = new int[]{0,0,1,-1};
-        int [] dy = new int[]{1,-1,0,0};
-        ArrayDeque<Pair<Integer,Integer>> arrayDeque = new ArrayDeque<>();
+        int [] dx = new int[]{0, 1, 0, -1};
+        int [] dy = new int[]{1, 0, -1, 0};
         public int numIslands(char[][] grid) {
-            g = grid;
-            int res = 0;
-            for (int i = 0; i < grid.length; i++) {
-                for (int j = 0; j < grid[i].length; j++) {
-                    if (g[i][j] == '1') {
-                        bfs(i,j);
-                        res ++;
+            int x = grid.length;
+            int y = grid[0].length;
+
+            int count = 0;
+            for (int i = 0; i < x; i++) {
+                for (int j = 0; j < y; j++) {
+                    if (grid[i][j] == '1') {
+                        count++;
+                        dfs(grid, i, j, x, y);
                     }
                 }
             }
-            return res;
+
+            return count;
         }
 
-        /*public void dfs(int i, int j) {
-            g[i][j] = '0';
-            for (int z = 0; z < 4; z++) {
-                int x = dx[z] + i;
-                int y = dy[z] + j;
-                if (x >= 0 && x < g.length && y >= 0 && y < g[x].length && g[x][y] == '1') {
-                    dfs(x,y);
-                }
-            }
-        }*/
+        private void dfs(char[][] grid, int i, int j, int x, int y) {
+            grid[i][j] = '0';
+            for (int d = 0; d < 4; d++) {
+                int nx = dx[d] + i;
+                int ny = dy[d] + j;
 
-        public void bfs(int i, int j) {
-            arrayDeque.offer(new Pair<>(i,j));
-            while (!arrayDeque.isEmpty()) {
-                Pair<Integer, Integer> poll = arrayDeque.poll();
-                for (int z = 0; z < 4; z++) {
-                    int a = poll.getKey() + dx[z];
-                    int b = poll.getValue() + dy[z];
-                    if (a >= 0 && a < g.length && b >= 0 && b < g[a].length && g[a][b] == '1') {
-                        arrayDeque.offer(new Pair<>(a,b));
-                        g[a][b] = '2';
-                    }
+                if (nx >= 0 && nx < x && ny >= 0 && ny < y && grid[nx][ny] == '1') {
+                    dfs(grid, nx, ny, x, y);
                 }
             }
+
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)

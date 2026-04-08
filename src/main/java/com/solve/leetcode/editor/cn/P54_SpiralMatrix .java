@@ -65,24 +65,23 @@ class Solution {
         List<Integer> res = new ArrayList<>();
         int m = matrix.length;
         int n = matrix[0].length;
-        boolean [][] b = new boolean[m][n];
+        boolean[][] b = new boolean[m][n];
 
-        for (int i = 0, x = 0, y = 0, s = 0, t = 0; i < m*n; i++) {
-            res.add(matrix[x][y]);
+        for (int i = 0, x = 0, y = 0, s = 0, t = 0; i < m * n; i++) {
+            int num = matrix[x][y];
+            res.add(num);
             b[x][y] = true;
-
             int q = x + dx[s%4];
             int w = y + dy[t%4];
-            if (q >= m || w >=n || w < 0 || q < 0 || b[q][w]) {
-                s ++;
-                t ++;
+            if (q >= m || w >= n || q < 0 || w < 0 || b[q][w]) {
+                s++;
+                t++;
                 x += dx[s%4];
                 y += dy[t%4];
             } else {
                 x = q;
                 y = w;
             }
-
         }
         return res;
     }

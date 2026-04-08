@@ -52,22 +52,24 @@ class P48_RotateImage{
 class Solution {
     public void rotate(int[][] matrix) {
         int temp;
-        // 对角线交换
-        for (int i = 0 ; i < matrix.length; i++) {
+        for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < i; j++) {
                 temp = matrix[i][j];
                 matrix[i][j] = matrix[j][i];
                 matrix[j][i] = temp;
             }
         }
-        // 中线交换
-        for (int i = 0 ; i < matrix.length; i++) {
-            for (int j = 0, k = matrix.length - 1; j < k; j++, k--) {
+
+        // 垂直中线反转
+        // [i,j] -> [i,n-1-j]
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length / 2; j++) {
                 temp = matrix[i][j];
-                matrix[i][j] = matrix[i][k];
-                matrix[i][k] = temp;
+                matrix[i][j] = matrix[i][matrix.length - 1 - j];
+                matrix[i][matrix.length - 1 - j] = temp;
             }
         }
+
     }
 
 }

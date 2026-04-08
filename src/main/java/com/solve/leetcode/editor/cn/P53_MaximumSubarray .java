@@ -53,25 +53,15 @@ class P53_MaximumSubarray{
     public static void main(String[] args) {
         //测试代码
         Solution solution = new P53_MaximumSubarray().new Solution();
+        solution.maxSubArray(new int []{-1,-2});
     }
 
 //力扣代码
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int maxSubArray(int[] nums) {
-        // f(i) 表示所有nums[i] 结尾的区间中最大和是多少
-        // f(i) 分成两个区间 区间长度>=2  区间长度=1
-        // 枚举所有的区间  [i-1,i] [i-2,i] [i-3,i] [0,i]  =>  f(i-1)+nums[i]
-        // 枚举一个数的区间
-        // so: f(i) = max (nums[i], f(i-1)+nums[i])
-        //          = nums[i] + max(f(i-1), 0);
-        int res = Integer.MIN_VALUE;
-        for (int i = 0, last = 0; i < nums.length; i++) {
-            last = nums[i] + Math.max(last, 0);
-            res = Math.max(last, res);
-        }
-        return res;
 
+        return 0;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

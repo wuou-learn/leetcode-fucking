@@ -34,6 +34,7 @@
 package com.solve.leetcode.editor.cn;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 合并区间
@@ -47,28 +48,24 @@ class P56_MergeIntervals{
         solution.merge(new int [][]{{1,3},{2,6},{15,18},{8,10}});
     }
 
-//力扣代码
+//力扣代码   
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int[][] merge(int[][] intervals) {
-        // 按左端点排序
-        // 判断是否有交集，有交集则更新右端点
-        // 没有交集则保存当前区间
-        Arrays.sort(intervals, Comparator.comparingInt(t -> t[0]));
-        // 第一个区间
-        int l = intervals[0][0], r = intervals[0][1];
-        List<int[]> res = new ArrayList<>();
+        if (intervals.length == 1) {
+            return intervals;
+        }
+        Arrays.sort(intervals, Comparator.comparingInt(a -> a[0]));
+        List<int []> res = new ArrayList<>();
+        res.add(intervals[0]);
         for (int i = 1; i < intervals.length; i++) {
-            // 下一区间的左端点大于第一个区间的右端点 则没交集 保存当前区间
-            if (intervals[i][0] > r) {
-                res.add(new int[]{l,r});
-                l = intervals[i][0];
-                r = intervals[i][1];
+            int[] last = res.get(res.size() - 1);
+            if (last[1] >= intervals[i][0]) {
+                last[1] = Math.max(last[1], intervals[i][1]);
             } else {
-                r = Math.max(r, intervals[i][1]);
+                res.add(intervals[i]);
             }
         }
-        res.add(new int[]{l,r});
         return res.toArray(new int[res.size()][]);
     }
 }

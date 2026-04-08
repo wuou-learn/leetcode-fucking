@@ -54,23 +54,27 @@ class P42_TrappingRainWater{
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int trap(int[] h) {
-        Deque<Integer> stack = new ArrayDeque<>();
         int res = 0;
-        int last = 0;
-        for (int i = 0; i < h.length; i++) {
-            if (stack.isEmpty()) {
-                stack.add(i);
-                continue;
+        int l = 0;
+        int lm = 0;
+        int r = h.length - 1;
+        int rm = 0;
+        while (l < r) {
+            if (h[l] < h[r]) {
+                if (h[l] > lm) {
+                    lm = h[l];
+                } else {
+                    res += lm - h[l];
+                }
+                l++;
+            } else {
+                if (h[r] > rm) {
+                    rm = h[r];
+                } else {
+                    res += rm - h[r];
+                }
+                r--;
             }
-            while (!stack.isEmpty() && h[i] > h[stack.getLast()]) {
-                int idx = stack.pollLast();
-                res += (i - idx - 1) * (h[idx] - last);
-                last = h[idx];
-            }
-            if (!stack.isEmpty()) {
-                res += (i - stack.getLast() - 1) * (h[i] - last);
-            }
-            stack.add(i);
         }
 
         return res;

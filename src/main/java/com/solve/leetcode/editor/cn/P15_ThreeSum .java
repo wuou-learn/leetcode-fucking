@@ -65,41 +65,45 @@ class P15_ThreeSum{
     public static void main(String[] args) {
         //测试代码
         Solution solution = new P15_ThreeSum().new Solution();
-        solution.threeSum(new int[]{-1,0,1,2,-1,-4});
+//        solution.threeSum(new int[]{-1,0,1,2,-1,-4});
+        solution.threeSum(new int[]{0,0,0});
     }
 
 //力扣代码
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-        // 先进行排序
-        // 双指针一定需要数组是有序的
         Arrays.sort(nums);
+        // [-4, -1, -1, 0 , 1 , 2]
         List<List<Integer>> res = new ArrayList<>();
-        for (int i = 0; i < nums.length; i++) {
-            // 如果值相同 则i去重
-            if (i > 0 && nums[i] == nums[i-1]) {
+
+        for (int i = 0; i <= nums.length - 3; i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) {
                 continue;
             }
-            for (int j = i + 1, k = nums.length - 1; j < k; j++) {
-                // 如果值相同 则j去重
-                // j > i + 1 确保j 是紧跟i之后的指针
-                if (j > i + 1 && nums[j] == nums[j-1]) {
-                    continue;
-                }
-                // j < k - 1 避免指针j与k 重复
-                // nums[i] + nums[j] + nums[k - 1] >= 0 因为数组是有序的 所以 nums[i] + nums[j] + nums[k] 也必然大于等于0
-                // 循环该过程 必然能找到一个接近于零的 k 值
-                while (j < k - 1 && nums[j] + nums[i] + nums[k-1] >= 0) k--;
-                if (nums[j] + nums[i] + nums[k] == 0) {
-                    List<Integer> list = new ArrayList<>();
-                    list.add(nums[i]);
-                    list.add(nums[j]);
-                    list.add(nums[k]);
-                    res.add(list);
+            int l = i+1;
+            int r = nums.length - 1;
+            while (l < r) {
+                int sum = nums[i] + nums[l] + nums[r];
+
+                if (sum < 0) {
+                    l++;
+                } else if (sum > 0) {
+                    r--;
+                } else {
+                    res.add(Arrays.asList(nums[i], nums[l], nums[r]));
+                    while (l < r && nums[l] == nums[l+1]) {
+                        l++;
+                    }
+                    while (l < r && nums[r] == nums[r - 1]) {
+                        r--;
+                    }
+                    l++;
+                    r--;
                 }
             }
         }
+
         return res;
     }
 }

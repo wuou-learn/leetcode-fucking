@@ -63,77 +63,7 @@ class P73_SetMatrixZeroes{
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public void setZeroes(int[][] matrix) {
-        /**
-         * 第0行表示：对应的每列中是否包含0
-         * 第0列表示：对应的每行中是否包含0
-         *
-         * 第0行以及第0列 用两个新变量表示是否包含0
-         * r0      c0
-         * 0 => 表示包含0
-         * 1 => 表示不包含0
-         */
-        int r0 = 1;
-        int c0 = 1;
-        int x = matrix.length;
-        int y = matrix[0].length;
-        // 第一行是否包含0
-        for (int i = 0; i < y; i++) {
-            int num = matrix[0][i];
-            if (num == 0) {
-                r0 = 0;
-                break;
-            }
-        }
 
-        // 第一列是否包含0
-        for (int i = 0; i < x; i++) {
-            int num = matrix[i][0];
-            if (num == 0) {
-                c0 = 0;
-                break;
-            }
-        }
-
-        for (int i = 1; i < x; i++) {
-            for (int j = 1; j < y; j++) {
-                if (matrix[i][j] == 0) {
-                    // 第i行
-                    matrix[i][0] = 0;
-                    // 第j列
-                    matrix[0][j] = 0;
-                }
-            }
-        }
-
-
-        // 循环列 列中有0 则该行=0
-        for (int i = 1; i < x; i++) {
-            if (matrix[i][0] == 0) {
-                for (int j = 1; j < y; j++) {
-                    matrix[i][j] = 0;
-                }
-            }
-        }
-        // 循环行 行中有0 则该列=0
-        for (int i = 1; i < y; i++) {
-            if (matrix[0][i] == 0) {
-                for (int j = 1; j < x; j++) {
-                    matrix[j][i] = 0;
-                }
-            }
-        }
-        // 第一行包含0
-        if (r0 == 0) {
-            for (int i = 0; i < y; i++) {
-                matrix[0][i] = 0;
-            }
-        }
-        // 第一列包含0
-        if (c0 == 0) {
-            for (int i = 0; i < x; i++) {
-                matrix[i][0] = 0;
-            }
-        }
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

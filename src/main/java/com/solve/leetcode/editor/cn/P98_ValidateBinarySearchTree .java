@@ -40,6 +40,7 @@
 package com.solve.leetcode.editor.cn;
 
 import com.solve.common.TreeNode;
+import com.sun.xml.internal.ws.client.sei.ResponseBuilder;
 
 /**
  * 验证二叉搜索树
@@ -86,39 +87,26 @@ class P98_ValidateBinarySearchTree{
  */
 class Solution {
 
-    // 中序遍历
+    Long prev = Long.MIN_VALUE;
     public boolean isValidBST(TreeNode root) {
-        if (root != null && root.left == null && root.right == null) {
-            return true;
-        }
         return dfs(root);
     }
-    long pre = Long.MIN_VALUE;
+
     public boolean dfs(TreeNode root) {
         if (root == null) {
             return true;
         }
+
         if (!dfs(root.left)) {
             return false;
         }
-        if (root.val <= pre) {
+        if (prev >= root.val) {
             return false;
         }
-        pre = root.val;
+        prev =(long) root.val;
         return dfs(root.right);
     }
 
-    /*// 前序遍历，左中右
-    public boolean isValidBST(TreeNode root) {
-        return dfs(root,Long.MIN_VALUE,Long.MAX_VALUE);
-    }
-
-    public boolean dfs(TreeNode root, long left, long right) {
-        if (root == null) {
-            return true;
-        }
-        return (root.val > left && root.val < right) && dfs(root.left, left, root.val) && dfs(root.right, root.val, right);
-    }*/
 }
 //leetcode submit region end(Prohibit modification and deletion)
 

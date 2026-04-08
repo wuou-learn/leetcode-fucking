@@ -67,28 +67,9 @@ class Solution {
 
 
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        List<Integer> path = new ArrayList<>();
-        List<List<Integer>> res = new ArrayList<>();
-        dfs(path,res,candidates,target,0);
-        return res;
+
     }
 
-    private void dfs(List<Integer> path, List<List<Integer>> res, int[] candidates, int target, int u) {
-        if (target == 0) {
-            res.add(new ArrayList<>(path));
-            return;
-        }
-        if (u == candidates.length) {
-            return;
-        }
-        for (int i = 0; candidates[u] * i <= target; i++) {
-            dfs(path,res,candidates,target-(candidates[u]*i),u+1);
-            path.add(candidates[u]);
-        }
-        for (int i = 0; candidates[u] * i <= target; i++) {
-            path.remove(path.size() - 1);
-        }
-    }
 }
 //leetcode submit region end(Prohibit modification and deletion)
 

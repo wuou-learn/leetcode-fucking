@@ -57,6 +57,7 @@ package com.solve.leetcode.editor.cn;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * 最小覆盖子串
@@ -74,34 +75,43 @@ class P76_MinimumWindowSubstring{
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public String minWindow(String s, String t) {
-        Map<Character, Integer> map = new HashMap<>();
-        for (int i = 0; i < t.length(); i++) {
-            map.put(t.charAt(i), map.getOrDefault(t.charAt(i), 0) + 1);
+        Map<Character, Integer> need = new HashMap<>();
+        for (Character c : t.toCharArray()) {
+            need.put(c, need.getOrDefault(c, 0) + 1);
         }
-        Map<Character, Integer> path = new HashMap<>();
-        int cnt = 0;
-        String res = "";
-        for (int i = 0, j = 0; j < s.length(); j++) {
-            char c = s.charAt(j);
-            path.put(c, path.getOrDefault(c, 0) + 1);
-            if (map.containsKey(c) && map.get(c) >= path.get(c)) {
-                cnt++;
-            }
-            while (i <= j && (!map.containsKey(s.charAt(i)) || path.get(s.charAt(i)) > map.get(s.charAt(i)))) {
-                i++;
-            }
-            if (cnt == t.length()) {
-                String str = s.substring(i, j+1);
-                if (res.isEmpty()) {
-                    res = str;
-                    continue;
+
+        int l = 0;
+        int r = 0;
+        Map<Character, Integer> windows = new HashMap<>();
+        int v = 0;
+        int len = Integer.MAX_VALUE;
+        int start = 0;
+        while (r < s.length()) {
+            char rc = s.charAt(r++);
+            if (need.containsKey(rc)) {
+                windows.put(rc,windows.getOrDefault(rc, 0) + 1);
+                if (windows.get(rc).equals(need.get(rc))) {
+                    v++;
                 }
-                res = str.length() < res.length() ? str : res;
+            }
+            while (v == need.size()) {
+                if (r - l < len) {
+                    len = r - l;
+                    start = l;
+                }
+                char lc = s.charAt(l++);
+                if (need.containsKey(lc)) {
+                    if (need.get(lc).equals(windows.get(lc))) {
+                        v--;
+                    }
+                    windows.put(lc, windows.getOrDefault(lc, 0) - 1);
+                }
             }
         }
-        return res;
+        return len == Integer.MAX_VALUE ? "" : s.substring(start, start + len);
     }
 }
+
 //leetcode submit region end(Prohibit modification and deletion)
 
 }

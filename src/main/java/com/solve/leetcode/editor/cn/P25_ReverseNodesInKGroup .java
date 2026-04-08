@@ -45,6 +45,9 @@ package com.solve.leetcode.editor.cn;
 
 import com.solve.单链表.ListNode;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * K 个一组翻转链表
  * @author wuou
@@ -70,29 +73,51 @@ class P25_ReverseNodesInKGroup{
  */
 class Solution {
     public ListNode reverseKGroup(ListNode head, int k) {
-        ListNode dummy = new ListNode();
+        ListNode dummy = new ListNode(-1);
         dummy.next = head;
-        for (ListNode p = dummy;;) {
-            ListNode q = p;
-            for (int i = 0; i < k && q !=null; i++) q = q.next;
-            if (q == null) {
+        ListNode pre = dummy;
+        ListNode end = dummy;
+
+        while (true) {
+            for (int i = 0; i < k && end != null; i++) {
+                end = end.next;
+            }
+            if (end == null) {
                 break;
             }
-            ListNode a = p.next;
-            ListNode b = a.next;
-            for (int i = 0; i < k - 1; i++) {
-                ListNode c = b.next;
-                b.next = a;
-                a = b;
-                b = c;
-            }
-            ListNode c = p.next;
-            p.next = a;
-            c.next = b;
-            p = c;
+
+            ListNode startTail = pre.next;
+            ListNode nextGrpHead = end.next;
+            // 断开链表
+            end.next = null;
+
+            ListNode reverseHead = reverse(startTail);
+
+            pre.next = reverseHead;
+            startTail.next = nextGrpHead;
+
+
+            pre = startTail;
+            end = startTail;
         }
+
+
         return dummy.next;
     }
+
+    public ListNode reverse(ListNode head) {
+        ListNode pre = null;
+        ListNode curr = head;
+        while (curr != null) {
+            ListNode next = curr.next;
+            curr.next = pre;
+            pre = curr;
+            curr = next;
+        }
+        return pre;
+    }
+
+
 }
 //leetcode submit region end(Prohibit modification and deletion)
 

@@ -38,10 +38,8 @@ package com.solve.leetcode.editor.cn;
 
 import com.solve.common.TreeNode;
 
-import java.util.ArrayDeque;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
+import java.util.*;
 
 /**
  * 二叉树的最大深度
@@ -89,55 +87,25 @@ class P104_MaximumDepthOfBinaryTree {
      * }
      */
     class Solution {
-        ArrayDeque<TreeNode> arrayDeque = new ArrayDeque<>();
+
         public int maxDepth(TreeNode root) {
-            if (root == null) {
-                return 0;
+            if (root == null) return 0;
+            Deque<TreeNode> deque = new ArrayDeque<>();
+            int d = 0;
+            deque.offer(root);
+            while (!deque.isEmpty()) {
+                int size = deque.size();
+                for (int i = 0; i < size; i++) {
+                    TreeNode poll = deque.poll();
+                    if (poll.left != null) deque.offer(poll.left);
+                    if (poll.right != null) deque.offer(poll.right);
+                }
+                d++;
             }
-            int left = maxDepth(root.left);
-            int right = maxDepth(root.right);
-            return Math.max(left, right) + 1;
-        }
-        /*int res = 0;
-        public int maxDepth(TreeNode root) {
-            int level = 0;
-            dfs(root, level);
-            return res;
+            return d;
         }
 
-        public int dfs(TreeNode root, int level) {
-            if (root == null) {
-                return level;
-            }
-            level++;
-            res = Math.max(level, res);
-            dfs(root.left, level);
-            dfs(root.right, level);
-            return level;
-        }*/
-    /*public int maxDepth(TreeNode root) {
-		if (root == null) {
-			return 0;
-		}
-		return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
-    }*/
-	/*public int bfs(){
-		int level = 0;
-		while (!arrayDeque.isEmpty()) {
-			level++;
-			int size = arrayDeque.size();
-			for (int i = 0; i < size; i++) {
-				TreeNode poll = arrayDeque.poll();
-				if (poll.left != null) {
-					arrayDeque.offer(poll.left);
-				}
-				if (poll.right != null) {
-					arrayDeque.offer(poll.right);
-				}
-			}
-		}
-		return level;
-	}*/
+
     }
 //leetcode submit region end(Prohibit modification and deletion)
 

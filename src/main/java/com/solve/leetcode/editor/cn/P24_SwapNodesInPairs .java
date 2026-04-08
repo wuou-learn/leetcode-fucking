@@ -75,19 +75,28 @@ class P24_SwapNodesInPairs{
  */
 class Solution {
     public ListNode swapPairs(ListNode head) {
-        if (head.next == null) return head;
-        List<ListNode> list = new ArrayList<>();
-        while (head != null) {
-            list.add(head);
-            head = head.next;
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        ListNode curr = dummy;
+
+        while (curr.next != null && curr.next.next != null) {
+            // 1
+            ListNode next1 = curr.next;
+            // 2
+            ListNode next2 = curr.next.next;
+
+            // 1 -> 3
+            next1.next = next2.next;
+            // 2 -> 1 -> 3
+            next2.next = next1;
+            // -1 -> 2 -> 1 -> 3
+            curr.next = next2;
+
+            // curr = 1
+            curr = next1;
         }
-        for (int i = 1; i < list.size(); i += 2) {
-            ListNode listNode1 = list.get(i-1);
-            ListNode listNode2 = list.get(i);
-            listNode1.next = listNode2.next;
-            listNode2.next = listNode1;
-        }
-        return list.get(0);
+
+        return dummy.next;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

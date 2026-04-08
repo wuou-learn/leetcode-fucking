@@ -71,19 +71,24 @@ class P2_AddTwoNumbers{
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode dummy = new ListNode(-1);
-        ListNode cur = dummy;
-        int t = 0;
-        while (l1 != null || l2 != null || t != 0) {
+        ListNode curr = dummy;
+        int c = 0;
+        while (l1 != null || l2 != null || c != 0) {
+            int a = l1 != null ? l1.val : 0;
+            int b = l2 != null ? l2.val : 0;
+            int sum = a + b + c;
+            ListNode l = new ListNode(sum % 10);
+            curr.next = l;
+            curr = curr.next;
+
+            c = sum / 10;
+
             if (l1 != null) {
-                t += l1.val;
                 l1 = l1.next;
             }
             if (l2 != null) {
-                t += l2.val;
                 l2 = l2.next;
             }
-            cur = cur.next = new ListNode(t % 10);
-            t /= 10;
         }
         return dummy.next;
     }

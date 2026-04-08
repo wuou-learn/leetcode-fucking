@@ -45,32 +45,29 @@ class P59_SpiralMatrixIi{
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int[][] generateMatrix(int n) {
-        // 根据偏移量进行移动
-        //  ------->y
-        //  |
-        //  |
-        //  x
         int [][] res = new int[n][n];
-        int [] dx = new int[]{0,1,0,-1};
-        int [] dy = new int[]{1,0,-1,0};
-        boolean [][] flag = new boolean[n][n];
-        for (int i = 1, x = 0, y = 0, nx = 0, ny = 0; i <= n*n; i++) {
+        // -> (0, 1)
+        // | (1, 0)
+        // <- (0, -1)
+        // 上 (-1, 0)
+        int [] dx = new int[]{0, 1, 0, -1};
+        int [] dy = new int[]{1, 0, -1, 0};
+        boolean[][] b = new boolean[n][n];
+        for (int i = 1,x = 0, y = 0, s = 0, t = 0; i <= n*n; i++) {
             res[x][y] = i;
-            flag[x][y] = true;
-            int a = x + dx[nx % 4];
-            int b = y + dy[ny % 4];
-            if (a >= n || b >= n || a < 0 || b < 0 || flag[a][b]) {
-                nx ++;
-                ny ++;
-                x += dx[nx % 4];
-                y += dy[ny % 4];
+            int q = x + dx[s % 4];
+            int w = y + dy[t % 4];
+            b[x][y] = true;
+            if (q >= n || w >= n || q < 0 || w < 0 || b[q][w]) {
+                s ++;
+                t ++;
+                x += dx[s % 4];
+                y += dy[t % 4];
             } else {
-                x = a;
-                y = b;
+                x = q;
+                y = w;
             }
-
         }
-
         return res;
     }
 }

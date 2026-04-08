@@ -85,75 +85,53 @@ class P23_MergeKSortedLists{
  */
 class Solution {
 
-    /*// 循环完成合并k个链表
-    public ListNode mergeKLists(ListNode[] lists) {
-        if (lists.length == 0) {
-            return null;
-        }
-        if (lists.length == 1) {
-            return lists[0];
-        }
-        ListNode dummy = lists[0];
+    /*public ListNode mergeKLists(ListNode[] lists) {
+        if (lists.length == 0) return null;
+        if (lists.length == 1) return lists[0];
+
+        ListNode dummy = new ListNode(-1);
+        ListNode curr = dummy;
+        curr.next = lists[0];
         for (int i = 1; i < lists.length; i++) {
-            dummy = mergeTwoLists(dummy, lists[i]);
+            curr.next = merge(curr.next, lists[i]);
         }
-        return dummy;
+        return dummy.next;
     }
 
-    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+    public ListNode merge(ListNode l1, ListNode l2) {
         ListNode dummy = new ListNode(-1);
-        ListNode tail = dummy;
-        while (list1 != null && list2 != null) {
-            if (list1.val < list2.val) {
-                tail.next = list1;
-                list1 = list1.next;
+        ListNode curr = dummy;
+        while (l1 != null && l2 != null) {
+            if (l1.val < l2.val) {
+                curr.next = l1;
+                l1 = l1.next;
             } else {
-                tail.next = list2;
-                list2 = list2.next;
+                curr.next = l2;
+                l2 = l2.next;
             }
-            tail = tail.next;
+            curr = curr.next;
         }
-        if (list1 != null) {
-            tail.next = list1;
-        }
-        if (list2 != null) {
-            tail.next = list2;
-        }
+        curr.next = l1 != null ? l1 : l2;
         return dummy.next;
     }*/
 
     // 优先级队列
     public ListNode mergeKLists(ListNode[] lists) {
-        if (lists.length == 0) return null;
-        if (lists.length == 1) return lists[0];
-        ListNode res = lists[0];
-        for (int i = 1; i < lists.length; i ++) {
-            res = merge(res, lists[i]);
+        PriorityQueue<ListNode> priorityQueue = new PriorityQueue<>((a, b) -> a.val - b.val);
+        for (ListNode list : lists) {
+            if (list != null) priorityQueue.offer(list);
         }
-        return res;
-    }
-
-    public ListNode merge(ListNode l1, ListNode l2) {
         ListNode dummy = new ListNode(-1);
-        ListNode res = dummy;
-        while (l1 != null && l2 != null) {
-            if (l1.val < l2.val) {
-                dummy.next = l1;
-                l1 = l1.next;
-            } else {
-                dummy.next = l2;
-                l2 = l2.next;
+        ListNode curr = dummy;
+        while (!priorityQueue.isEmpty()) {
+            ListNode poll = priorityQueue.poll();
+            curr.next = poll;
+            curr = curr.next;
+            if (poll.next != null) {
+                priorityQueue.offer(poll.next);
             }
-            dummy = dummy.next;
-
         }
-        if (l1 != null) {
-            dummy.next = l1;
-        }
-        if (l2 != null) {
-            dummy.next = l2;
-        }
-        return res.next;
+        return dummy.next;
     }
 
 }

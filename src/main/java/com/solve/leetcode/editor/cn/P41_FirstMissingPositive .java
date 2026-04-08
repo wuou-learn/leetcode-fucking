@@ -55,16 +55,23 @@ class P41_FirstMissingPositive{
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int firstMissingPositive(int[] nums) {
-        HashSet<Integer> hash = new HashSet<>();
-        for (int i =0; i < nums.length; i++) {
-            hash.add(nums[i]);
+        for (int i = 0; i < nums.length; i++) {
+            while (nums[i] < nums.length && nums[i] >= 1 && nums[i] != nums[nums[i] - 1]) {
+                swap(nums, i, nums[i] - 1);
+            }
         }
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != i + 1) {
+                return i + 1;
+            }
+        }
+        return nums.length + 1;
+    }
 
-        int i = 1;
-        while (hash.contains(i)) {
-            i++;
-        }
-        return i;
+    public void swap(int [] nums, int a, int b) {
+        int temp = nums[a];
+        nums[a] = nums[b];
+        nums[b] = temp;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

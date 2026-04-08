@@ -41,6 +41,7 @@
 
 package com.solve.leetcode.editor.cn;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,7 +54,7 @@ class P3_LongestSubstringWithoutRepeatingCharacters{
     public static void main(String[] args) {
         //测试代码
         Solution solution = new P3_LongestSubstringWithoutRepeatingCharacters().new Solution();
-        solution.lengthOfLongestSubstring("pwwkew");
+        solution.lengthOfLongestSubstring("tmmzuxt");
 //        solution.lengthOfLongestSubstring("abcabcbb");
     }
 
@@ -62,14 +63,16 @@ class P3_LongestSubstringWithoutRepeatingCharacters{
 class Solution {
     public int lengthOfLongestSubstring(String s) {
         Map<Character, Integer> map = new HashMap<>();
+        int l = 0;
         int res = 0;
-        for (int i = 0, end = 0; i < s.length(); i++) {
-            map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0) + 1);
-            while (map.get(s.charAt(i)) > 1) {
-                map.put(s.charAt(end), map.get(s.charAt(end) - 1));
-                end++;
+        char[] chars = s.toCharArray();
+        for (int r = 0; r < s.length(); r++) {
+            char key = chars[r];
+            if (map.containsKey(key) && map.get(key) > l) {
+                l = map.get(key) + 1;
             }
-            res = Math.max(res, i - end + 1);
+            res = Math.max(res, r-l+1);
+            map.put(key, r);
         }
         return res;
     }

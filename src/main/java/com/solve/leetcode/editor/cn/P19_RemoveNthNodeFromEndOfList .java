@@ -76,21 +76,23 @@ class P19_RemoveNthNodeFromEndOfList{
  */
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        ListNode res = head;
-        List<ListNode> indexListNode = new ArrayList<>();
-        while (head != null) {
-            indexListNode.add(head);
-            head = head.next;
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        ListNode curr = dummy.next;
+        int len = 0;
+        while (curr != null) {
+            len++;
+            curr = curr.next;
         }
-        int i = indexListNode.size() - n - 1;
-        if (i >= 0 && i < indexListNode.size()) {
-            ListNode l = indexListNode.get(i);
-            l.next = l.next.next;
+
+        curr = dummy;
+        for (int i = 0; i < len - n; i++) {
+            curr = curr.next;
         }
-        if (i < 0) {
-            res = res.next;
-        }
-        return res;
+
+        curr.next = curr.next.next;
+
+        return dummy.next;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

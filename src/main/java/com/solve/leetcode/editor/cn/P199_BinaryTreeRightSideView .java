@@ -44,6 +44,7 @@ import com.solve.common.TreeNode;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 /**
@@ -90,50 +91,28 @@ class P199_BinaryTreeRightSideView{
  * }
  */
 class Solution {
-    List<Integer> res = new ArrayList<>();
-    /*public List<Integer> rightSideView(TreeNode root) {
-        dfs(root,0);
-        return res;
-    }
-    int h = 0;
-    public void dfs(TreeNode root, int level) {
-        if (root == null) {
-            return ;
-        }
-        h = Math.max(level, h);
-        if (h == res.size()) {
-            res.add(root.val);
-        }
-        level++;
-        dfs(root.right, level);
-        dfs(root.left, level);
-    }*/
-
-    ArrayDeque<TreeNode> arrayDeque = new ArrayDeque<>();
     public List<Integer> rightSideView(TreeNode root) {
-        if (root == null) {
-            return res;
-        }
-        arrayDeque.offer(root);
-        bfs();
-        return res;
-    }
-    public void bfs() {
-        while (!arrayDeque.isEmpty()) {
-            int size = arrayDeque.size();
-            for (int i = 0; i < size; i++) {
-                TreeNode poll = arrayDeque.poll();
-                if (poll.left != null) {
-                    arrayDeque.offer( poll.left);
-                }
-                if (poll.right != null) {
-                    arrayDeque.offer( poll.right);
-                }
-                if (i == size - 1) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        Deque<TreeNode> deque = new ArrayDeque<>();
+        deque.offer(root);
+        while (!deque.isEmpty()) {
+            int size = deque.size();
+            for (int i =0; i < size; i++) {
+                TreeNode poll = deque.poll();
+                if (i == 0) {
                     res.add(poll.val);
+                }
+
+                if (poll.right != null) {
+                    deque.offer(poll.right);
+                }
+                if (poll.left != null) {
+                    deque.offer(poll.left);
                 }
             }
         }
+        return res;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

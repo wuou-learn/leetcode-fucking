@@ -54,33 +54,29 @@ class P49_GroupAnagrams{
 //力扣代码
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
-    int [] charCnt = new int[26];
     public List<List<String>> groupAnagrams(String[] strs) {
         Map<String, List<String>> map = new HashMap<>();
+
         for (String str : strs) {
-            String hash = hash(str);
-            if (map.containsKey(hash)) {
-                List<String> group = map.get(hash);
-                group.add(str);
+            int[] hash = new int[26];
+            for (char c : str.toCharArray()) {
+                hash[c - 'a'] ++;
+            }
+            StringBuilder s = new StringBuilder();
+            for (int i : hash) {
+                s.append(i).append("-");
+            }
+            String key = s.toString();
+            if (map.containsKey(key)) {
+                List<String> values = map.get(key);
+                values.add(str);
             } else {
-                List<String> group = new ArrayList<>();
-                group.add(str);
-                map.put(hash, group);
+                List<String> values = new ArrayList<>();
+                values.add(str);
+                map.putIfAbsent(s.toString(), values);
             }
         }
         return new ArrayList<>(map.values());
-    }
-    public String hash(String s) {
-        // 创建一个长度为 26 的数组，初始化为 0
-        Arrays.fill(charCnt, 0);
-
-        // 遍历输入字符串，统计每个字母的出现次数
-        for (char c : s.toCharArray()) {
-            charCnt[c - 'a']++;
-        }
-
-        // 将计数数组转换为字符串形式
-        return Arrays.toString(charCnt);
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

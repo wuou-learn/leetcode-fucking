@@ -41,10 +41,7 @@
 
 package com.solve.leetcode.editor.cn;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * 电话号码的字母组合
@@ -63,28 +60,26 @@ class P17_LetterCombinationsOfAPhoneNumber {
 //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
 
-        String [] d = new String[]{"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
-        char [] path;
-        List<String> ans = new ArrayList<>();
-        public List<String> letterCombinations(String digits) {
-            if (digits.isEmpty()) {
-                return ans;
-            }
-            path = new char[digits.length()];
-            dfs(digits, 0);
-            return ans;
-        }
 
-        public void dfs(String digits, int u) {
-            if (u == digits.length()) {
-                ans.add(new String(path));
-            } else {
-                for (char c : d[digits.charAt(u) - '0'].toCharArray()) {
-                    path[u] = c;
-                    dfs(digits, u+1);
+        public List<String> letterCombinations(String digits) {
+            String [] d = new String[]{"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+            Deque<String> deque = new ArrayDeque<>();
+            deque.offer("");
+            for (char c : digits.toCharArray()) {
+                String s = d[c - '0'];
+                int size = deque.size();
+                for (int i = 0; i < size; i++) {
+                    String poll = deque.poll();
+                    for (char sc : s.toCharArray()) {
+                        deque.offer(poll + sc);
+                    }
                 }
             }
+
+            return new ArrayList<>(deque);
         }
+
+
     }
 //leetcode submit region end(Prohibit modification and deletion)
 

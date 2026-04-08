@@ -75,13 +75,16 @@ class P26_RemoveDuplicatesFromSortedArray{
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int removeDuplicates(int[] nums) {
-        int k = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if (i == 0 || nums[i] != nums[i-1]) {
-                nums[k++] = nums[i];
+        int idx = 0;
+        int last = nums[idx++];
+        for (int i = 1; i < nums.length; i++) {
+            if (last == nums[i]) {
+                continue;
             }
+            nums[idx++] = nums[i];
+            last = nums[i];
         }
-        return k;
+        return idx;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
